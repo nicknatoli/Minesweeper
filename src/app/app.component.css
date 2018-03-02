@@ -1,0 +1,13 @@
+#game-wrapper{
+    display: block;
+    position: relative;
+    background-color: darkgrey;
+    margin: auto;
+    border: solid black 2px;
+    width:50%;
+    height:50%;
+}
+
+#game-settings{
+    top:0;
+}
