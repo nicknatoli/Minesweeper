@@ -6,7 +6,5 @@
     </select>
     <button id="new-game" (click)="newGame()"> New Game </button>
   </div>
-  <div id="placeholder">
-    <app-game-board *ngIf="isGameBoardDefined"></app-game-board>
-  </div> 
+  <app-game-board *ngIf="gameCounter > 0" [gameCounter]="gameCounter"></app-game-board>
 </div>

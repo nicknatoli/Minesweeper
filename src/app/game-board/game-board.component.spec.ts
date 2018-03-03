@@ -1,16 +1,19 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { GameBoardComponent } from './game-board.component';
 import { GameBoardService } from '../services/game-board.service';
 import { GameBoard } from '../models/game-board';
 import { AppComponent } from '../app.component';
+import { Difficulty } from '../enums/difficulty.enum';
+
 
 describe('GameBoardComponent', () => {
-  let parentComponent: AppComponent;
   let component: GameBoardComponent;
-  let parentFixture: ComponentFixture<AppComponent>;
   let fixture: ComponentFixture<GameBoardComponent>;
-  
+  const BEGINNER = [8,8,10];
+  const INTERMEDIATE = [16,16,40];
+  const ADVANCED = [16,30,99];
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ GameBoardComponent, AppComponent ],
@@ -23,13 +26,8 @@ describe('GameBoardComponent', () => {
   }));
 
   beforeEach(() => {
-    parentFixture = TestBed.createComponent(AppComponent);
     fixture = TestBed.createComponent(GameBoardComponent);
-    
-    parentComponent = parentFixture.componentInstance;
     component = fixture.componentInstance;
-    
-    parentFixture.detectChanges();
     fixture.detectChanges();
   });
 
@@ -37,16 +35,12 @@ describe('GameBoardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('The gameboard has been initialized to beginner', () => {
-    let expectedMinefield = new Array<Array<any>>();
-    let emptyBeginnerMineFieldRow = [false, false, false, false, false, false, false, false];
-    
-    for(let i = 0; i < 8; ++i){
-      expectedMinefield.push(emptyBeginnerMineFieldRow);      
-    }
-    
-    parentComponent.newGame();
-    component.ngOnInit();
-    expect(expectedMinefield).toEqual(component.mineField);
-  })
+  it('The gameboard has been initialized to beginner', inject([GameBoardService], (service: GameBoardService)  => {
+    service.initializeGameBoard(BEGINNER[0],BEGINNER[1], BEGINNER[3]);
+    component.updateMineField();
+    let mineField = service.getMineField();
+    let expectedBoardSize = [mineField.length, mineField[0].length]
+    let actualBoardSize = [component.mineField.length, component.mineField[0].length];
+    expect(expectedBoardSize).toEqual(actualBoardSize);
+  }));
 });

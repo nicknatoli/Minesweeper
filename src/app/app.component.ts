@@ -20,22 +20,22 @@ export class AppComponent {
     [16,16,40],
     [16,30,99]
   ]
+  public gameCounter: number;
   public selectedDifficulty: any;
-  public isGameBoardDefined: boolean;
 
   constructor(private gameBoardService: GameBoardService) {}
 
   ngOnInit(){
     this.selectedDifficulty = Difficulty.Beginner;
-    this.isGameBoardDefined = false;
+    this.gameCounter = 0;
   }
 
   newGame() {
-      let height = this.difficultyValues[this.selectedDifficulty][0];
-      let width = this.difficultyValues[this.selectedDifficulty][1];
-      let numberOfMines = this.difficultyValues[this.selectedDifficulty][2];
+    let height = this.difficultyValues[this.selectedDifficulty][0];
+    let width = this.difficultyValues[this.selectedDifficulty][1];
+    let numberOfMines = this.difficultyValues[this.selectedDifficulty][2];
       
-      this.gameBoardService.initializeGameBoard(height, width, numberOfMines);
-      this.isGameBoardDefined = true;
+    this.gameBoardService.initializeGameBoard(height, width, numberOfMines);
+    this.gameCounter++;
   }
 }
