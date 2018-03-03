@@ -25,7 +25,7 @@ describe('GameBoardService', () => {
       expectedMinefield.push(emptyBeginnerMineFieldRow);      
     }
     
-    service.initializeGameBoard(8,8);
+    service.initializeGameBoard(8,8,0);
     let actualMinefield = service.getMineField();
     expect(expectedMinefield).toEqual(actualMinefield);
   }));  

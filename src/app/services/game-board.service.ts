@@ -6,7 +6,7 @@ export class GameBoardService {
 
   constructor(private gameBoard: GameBoard) { }
 
-  initializeGameBoard(height: number, width: number){
+  initializeGameBoard(height: number, width: number, numberOfMines: number){
     this.gameBoard.height = height;
     this.gameBoard.width = width;
     this.gameBoard.mineField = new Array<Array<any>>();

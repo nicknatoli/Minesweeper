@@ -12,9 +12,6 @@ export class GameBoardComponent implements OnInit {
   constructor(private gameBoardService: GameBoardService) { }
 
   ngOnInit() {
-    this.gameBoardService.initializeGameBoard(8,8);
     this.mineField = this.gameBoardService.getMineField();
   }
-
-  
 }
