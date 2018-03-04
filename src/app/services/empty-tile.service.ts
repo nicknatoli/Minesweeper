@@ -1,10 +1,20 @@
 import { Injectable } from '@angular/core';
 import { GameBoard } from '../models/game-board';
+import { Tile } from '../models/contracts/tile';
 
 @Injectable()
 export class EmptyTileService {
 
   constructor(private gameBoard: GameBoard) { }
+
+  getAdjacentTiles(xCoordinate, yCoordinate){
+    let adjacentTiles = new Array<Tile>();
+    let adjacentLocations = this.getAdjacentLocations(xCoordinate, yCoordinate);
+    for(let location of adjacentLocations){
+      adjacentTiles.push(this.gameBoard.mineField[location[1]][location[0]]);
+    }
+    return adjacentTiles;
+  }
 
   getAdjacentLocations(xCoordinate, yCoordinate){
     let adjacentLocations = new Array<[number,number]>();

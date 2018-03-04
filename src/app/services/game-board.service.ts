@@ -3,11 +3,12 @@ import { GameBoard } from '../models/game-board';
 import { Mine } from '../models/mine';
 import { EmptyTile } from '../models/empty-tile';
 import { Tile } from '../models/contracts/tile';
+import { EmptyTileService } from './empty-tile.service';
 
 @Injectable()
 export class GameBoardService {
 
-  constructor(private gameBoard: GameBoard) { }
+  constructor(private gameBoard: GameBoard, private tileService: EmptyTileService) { }
 
   getMineField(){
     return this.gameBoard.mineField;

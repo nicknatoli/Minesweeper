@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { GameBoardComponent } from './game-board/game-board.component';
 import { GameBoardService } from './services/game-board.service';
 import { GameBoard } from './models/game-board';
+import { EmptyTileService } from './services/empty-tile.service';
 
 
 @NgModule({
@@ -16,7 +17,11 @@ import { GameBoard } from './models/game-board';
   imports: [
     BrowserModule
   ],
-  providers: [GameBoard,GameBoardService],
+  providers: [
+    GameBoard,
+    GameBoardService,
+    EmptyTileService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,6 +5,7 @@ import { GameBoardService } from './services/game-board.service';
 import { GameBoard } from './models/game-board';
 import { Difficulty } from './enums/difficulty.enum';
 import { By } from '@angular/platform-browser';
+import { EmptyTileService } from './services/empty-tile.service';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -21,7 +22,8 @@ describe('AppComponent', () => {
       ],
       providers:[
         GameBoardService, 
-        GameBoard
+        GameBoard,
+        EmptyTileService
       ]
     }).compileComponents();
   }));

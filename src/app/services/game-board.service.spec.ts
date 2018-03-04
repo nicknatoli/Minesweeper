@@ -2,6 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { GameBoardService } from './game-board.service';
 import { GameBoard } from '../models/game-board';
+import { EmptyTileService } from './empty-tile.service';
 
 describe('GameBoardService', () => {
   const BEGINNER = [8,8,10];
@@ -12,7 +13,8 @@ describe('GameBoardService', () => {
     TestBed.configureTestingModule({
       providers: [
         GameBoardService, 
-        GameBoard
+        GameBoard,
+        EmptyTileService
       ]
     });
   });
