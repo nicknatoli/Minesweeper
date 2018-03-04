@@ -23,7 +23,7 @@ export class EmptyTileService {
     }
   }
 
-  caclulateMineCount(tile: EmptyTile){
+  private caclulateMineCount(tile: EmptyTile){
     for(let location of tile.adjacentTileLocations){
       let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
       if(adjacentTile.isMine){
@@ -32,7 +32,7 @@ export class EmptyTileService {
     }
   }
 
-  getAdjacentLocations(xCoordinate, yCoordinate){
+  private getAdjacentLocations(xCoordinate, yCoordinate){
     let adjacentLocations = new Array<[number,number]>();
     let topLeftAdjacentLocation = [xCoordinate-1, yCoordinate-1];
     for(let i = 0; i < 3; ++i){
@@ -55,10 +55,5 @@ export class EmptyTileService {
 
   private isValidXCoordinate(xCoordinate){
     return xCoordinate < this.gameBoard.width && xCoordinate >= 0;
-  }
-
-  private isValidMineFieldLocation(xCoordinate, yCoordinate){
-    return xCoordinate < this.gameBoard.width  && xCoordinate >= 0 &&
-           yCoordinate < this.gameBoard.height && yCoordinate >= 0;
   }
 }
