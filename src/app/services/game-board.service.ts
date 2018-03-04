@@ -14,6 +14,10 @@ export class GameBoardService {
     return this.gameBoard.mineField;
   }
 
+  getTile(xCoordinate, yCoordinate){
+    return this.gameBoard.mineField[yCoordinate][xCoordinate];
+  }
+
   initializeGameBoard(height: number, width: number, mines: number){
     this.gameBoard.height = height;
     this.gameBoard.width = width;

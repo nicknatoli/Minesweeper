@@ -1,19 +1,35 @@
 import { Injectable } from '@angular/core';
 import { GameBoard } from '../models/game-board';
 import { Tile } from '../models/contracts/tile';
+import { EmptyTile } from '../models/empty-tile';
 
 @Injectable()
 export class EmptyTileService {
 
   constructor(private gameBoard: GameBoard) { }
 
-  getAdjacentTiles(xCoordinate, yCoordinate){
-    let adjacentTiles = new Array<Tile>();
-    let adjacentLocations = this.getAdjacentLocations(xCoordinate, yCoordinate);
-    for(let location of adjacentLocations){
-      adjacentTiles.push(this.gameBoard.mineField[location[1]][location[0]]);
+  setAdjacentTileLocations(){
+    let mineField = this.gameBoard.mineField;
+
+    for(let y = 0; y < this.gameBoard.height; ++y){
+      for(let x = 0; x < this.gameBoard.width; ++x){
+        let adjacentTileLocations = this.getAdjacentLocations(x,y);
+        let tile = mineField[y][x];
+        if(tile instanceof EmptyTile){
+          tile.adjacentTileLocations = adjacentTileLocations;
+          this.caclulateMineCount(tile);
+        }
+      }
     }
-    return adjacentTiles;
+  }
+
+  caclulateMineCount(tile: EmptyTile){
+    for(let location of tile.adjacentTileLocations){
+      let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
+      if(adjacentTile.isMine){
+        tile.mineCount++;
+      }
+    }
   }
 
   getAdjacentLocations(xCoordinate, yCoordinate){
