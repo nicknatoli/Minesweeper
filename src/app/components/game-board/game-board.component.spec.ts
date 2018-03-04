@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { GameBoardComponent } from './game-board.component';
-import { GameBoardService } from '../services/game-board.service';
-import { GameBoard } from '../models/game-board';
-import { AppComponent } from '../app.component';
-import { Difficulty } from '../enums/difficulty.enum';
-import { EmptyTileService } from '../services/empty-tile.service';
+import { GameBoardService } from '../../services/game-board.service';
+import { GameBoard } from '../../models/game-board';
+import { AppComponent } from '../../app.component';
+import { Difficulty } from '../../enums/difficulty.enum';
+import { EmptyTileService } from '../../services/empty-tile.service';
 
 
 describe('GameBoardComponent', () => {

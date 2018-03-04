@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
-import { GameBoardService } from '../services/game-board.service';
+import { GameBoardService } from '../../services/game-board.service';
 
 @Component({
   selector: 'app-game-board',

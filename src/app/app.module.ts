@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { GameBoardComponent } from './game-board/game-board.component';
+import { GameBoardComponent } from './components/game-board/game-board.component';
 import { GameBoardService } from './services/game-board.service';
 import { GameBoard } from './models/game-board';
 import { EmptyTileService } from './services/empty-tile.service';
