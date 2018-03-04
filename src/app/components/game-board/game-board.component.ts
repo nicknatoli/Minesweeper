@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { GameBoardService } from '../../services/game-board.service';
+import { Tile } from '../../models/contracts/tile';
 
 @Component({
   selector: 'app-game-board',
@@ -24,5 +25,10 @@ export class GameBoardComponent implements OnInit {
 
   updateMineField(){
     this.mineField = this.gameBoardService.getMineField();
+  }
+
+  onTileClick(tile: Tile){
+    tile.reveal();
+    this.updateMineField();
   }
 }

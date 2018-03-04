@@ -1,9 +1,21 @@
-table, tr, td {
+table, tr {
     border: 1px solid black;
 }
 
 td {
     empty-cells: show;
+    cursor: pointer;
     width:25px;
     height:25px;
+    border:2px outset rgb(61, 57, 57);
+    box-shadow: 0 1px rgb(85, 83, 83);
+}
+
+td:hover{
+    background-color: rgb(114, 112, 112);
+}
+
+td:active{
+    transform: translateY(1px);
+    box-shadow: 0 0px rgb(85, 83, 83);
 }

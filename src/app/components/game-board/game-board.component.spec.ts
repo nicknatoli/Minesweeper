@@ -6,6 +6,7 @@ import { GameBoard } from '../../models/game-board';
 import { AppComponent } from '../../app.component';
 import { Difficulty } from '../../enums/difficulty.enum';
 import { EmptyTileService } from '../../services/empty-tile.service';
+import { TileComponent } from '../tile/tile.component';
 
 
 describe('GameBoardComponent', () => {
@@ -17,7 +18,11 @@ describe('GameBoardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameBoardComponent, AppComponent ],
+      declarations: [ 
+        GameBoardComponent,
+        AppComponent,
+        TileComponent 
+      ],
       providers: [
         GameBoardService, 
         GameBoard,

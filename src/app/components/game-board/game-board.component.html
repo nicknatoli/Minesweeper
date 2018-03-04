@@ -1,8 +1,8 @@
 <div id="mine-field">
     <table>
         <tr *ngFor="let row of mineField">
-          <td *ngFor="let col of row">
-              
+          <td *ngFor="let tile of row" (click)="onTileClick(tile)">
+              <app-tile [tile]="tile"></app-tile>
           </td>
         </tr>
       </table>

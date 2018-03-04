@@ -9,6 +9,7 @@ export class EmptyTile implements Tile {
     constructor(){
         this.isMine = false;
         this.isHidden = true;
+        this.mineCount = 0;
     }
 
     reveal(){

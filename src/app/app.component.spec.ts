@@ -6,6 +6,9 @@ import { GameBoard } from './models/game-board';
 import { Difficulty } from './enums/difficulty.enum';
 import { By } from '@angular/platform-browser';
 import { EmptyTileService } from './services/empty-tile.service';
+import { EmptyTile } from './models/empty-tile';
+import { Mine } from './models/mine';
+import { TileComponent } from './components/tile/tile.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -18,7 +21,8 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        GameBoardComponent
+        GameBoardComponent,
+        TileComponent
       ],
       providers:[
         GameBoardService, 

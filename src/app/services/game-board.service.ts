@@ -26,6 +26,7 @@ export class GameBoardService {
 
     this.createEmptyMineField();
     this.placeMines();
+    this.tileService.setAdjacentTileLocations();
   }
 
   private createEmptyMineField(){
