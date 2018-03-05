@@ -18,6 +18,21 @@ export class GameBoardService {
     return this.gameBoard.mineField[yCoordinate][xCoordinate];
   }
 
+  isGameWon(){
+    let tilesRevealed = 0;
+    for(let row of this.gameBoard.mineField){
+      for(let tile of row){
+        if(!tile.isHidden){
+          ++tilesRevealed;
+        }
+      }
+    }
+
+    let totalTiles = this.gameBoard.height*this.gameBoard.width;
+    let remainingTiles = totalTiles - tilesRevealed;
+    return remainingTiles == this.gameBoard.mines;
+  }
+
   revealAllTiles(){
     for(let row of this.gameBoard.mineField){
       for(let tile of row){

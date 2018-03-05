@@ -137,4 +137,42 @@ describe('GameBoardService', () => {
       }
     }
   }));
+
+  it('If all empty tiles are reveled the game should be won', inject([GameBoardService], (service: GameBoardService) => {
+    service.initializeGameBoard(BEGINNER[0],BEGINNER[1], BEGINNER[2]);
+
+    let mineField = service.getMineField();
+    for(let row of mineField){
+      for(let tile of row){
+        if(!tile.isMine){
+          tile.reveal();
+        }
+      }
+    }
+
+    expect(service.isGameWon()).toBeTruthy();
+  }));
+
+  it('If no tiles are reveled the game should not be won', inject([GameBoardService], (service: GameBoardService) => {
+    service.initializeGameBoard(BEGINNER[0],BEGINNER[1], BEGINNER[2]);
+
+    expect(service.isGameWon()).toBeFalsy();
+  }));
+
+  it('If some tiles are reveled the game should not be won', inject([GameBoardService], (service: GameBoardService) => {
+    service.initializeGameBoard(BEGINNER[0],BEGINNER[1], BEGINNER[2]);
+    
+    let alternatingValue = 1;
+    let mineField = service.getMineField();
+    for(let row of mineField){
+      for(let tile of row){
+        if(!tile.isMine && alternatingValue % 2 == 1){
+          tile.reveal();
+          ++alternatingValue;
+        }
+      }
+    }
+
+    expect(service.isGameWon()).toBeFalsy();
+  }));
 });

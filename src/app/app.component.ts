@@ -39,10 +39,17 @@ export class AppComponent {
       
     this.gameBoardService.initializeGameBoard(height, width, numberOfMines);
     this.gameCounter++;
+
+    this.gameStatusElemRef.style.background = "url(../assets/smileyface.jpg) no-repeat"; 
+    this.gameStatusElemRef.style.backgroundSize = "cover"; 
   }
 
   onGameOver(){
     this.gameStatusElemRef.style.background = "url(../assets/sadface.jpg) no-repeat"; 
     this.gameStatusElemRef.style.backgroundSize = "cover"; 
+  }
+
+  updateGameStatusImage(){
+
   }
 }
