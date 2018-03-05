@@ -53,8 +53,4 @@ export class AppComponent {
     this.gameStatusElemRef.style.background = "url(../assets/sunglassface.jpg) no-repeat"; 
     this.gameStatusElemRef.style.backgroundSize = "cover"; 
   }
-
-  updateGameStatusImage(){
-
-  }
 }

@@ -44,13 +44,12 @@ export class GameBoardComponent implements OnInit {
       this.onGameOver.emit();
     }
 
+    if(this.gameBoardService.isGameWon()){
+      this.onGameWon.emit();
+      this.gameOver = true;
+    }
     
     this.updateMineField();
   }
-
-  // onContextMenu(event: MouseEvent, tile: Tile){
-  //   console.log(event);
-  //   tile.isFlagged = !tile.isFlagged;
-  // }
 
 }
