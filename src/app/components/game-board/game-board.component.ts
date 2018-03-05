@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { GameBoardService } from '../../services/game-board.service';
 import { Tile } from '../../models/contracts/tile';
+import { EmptyTile } from '../../models/empty-tile';
 
 @Component({
   selector: 'app-game-board',
@@ -28,7 +29,12 @@ export class GameBoardComponent implements OnInit {
   }
 
   onTileClick(tile: Tile){
-    tile.reveal();
+    if(tile instanceof EmptyTile){
+      this.gameBoardService.revealAdjacentTiles(tile);
+    } else {
+      tile.reveal();
+    }
+    
     this.updateMineField();
   }
 }

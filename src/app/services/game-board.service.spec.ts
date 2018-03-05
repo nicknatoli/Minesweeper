@@ -3,6 +3,8 @@ import { TestBed, inject } from '@angular/core/testing';
 import { GameBoardService } from './game-board.service';
 import { GameBoard } from '../models/game-board';
 import { EmptyTileService } from './empty-tile.service';
+import { Tile } from '../models/contracts/tile';
+import { EmptyTile } from '../models/empty-tile';
 
 describe('GameBoardService', () => {
   const BEGINNER = [8,8,10];
@@ -63,6 +65,8 @@ describe('GameBoardService', () => {
     expect(actualGameBoard).toEqual(INTERMEDIATE);
   }));
 
+  
+  
   it('Initialize advanced GameBoard', inject([GameBoardService], (service: GameBoardService) => {
     service.initializeGameBoard(ADVANCED[0],ADVANCED[1], ADVANCED[2]);
     let height = 0;
@@ -81,5 +85,48 @@ describe('GameBoardService', () => {
     
     let actualGameBoard = [height, width/height, mines];
     expect(actualGameBoard).toEqual(ADVANCED);
-  }));    
+  }));
+
+  it('Tiles bordering a mine should not reveal additional tiles', inject([GameBoardService], (service: GameBoardService) => {
+    service.initializeGameBoard(BEGINNER[0],BEGINNER[1], BEGINNER[2]);
+    let mineField = service.getMineField();
+    let mineAdjacentTile: EmptyTile;
+    for(let row of mineField){
+      for(let tile of row){
+        if(tile instanceof EmptyTile){
+          if(tile.mineCount > 0){
+            mineAdjacentTile = tile;
+            break;
+          }
+        }
+      }
+    }
+    
+    service.revealAdjacentTiles(mineAdjacentTile);
+    for(let location of mineAdjacentTile.adjacentTileLocations){
+      expect(mineField[location[1]][location[0]].isHidden).toBeTruthy();
+    }
+  }));
+
+  it('Tiles not bordering a mine should reveal adjacent tiles', inject([GameBoardService], (service: GameBoardService) => {
+    service.initializeGameBoard(BEGINNER[0],BEGINNER[1], BEGINNER[2]);
+    let mineField = service.getMineField();
+    let emptyTile: EmptyTile;
+    for(let row of mineField){
+      for(let tile of row){
+        if(tile instanceof EmptyTile){
+          if(tile.mineCount == 0){
+            emptyTile = tile;
+            break;
+          }
+        }
+      }
+    }
+    
+    service.revealAdjacentTiles(emptyTile);
+    for(let location of emptyTile.adjacentTileLocations){
+      expect(mineField[location[1]][location[0]].isHidden).toBeFalsy();
+    }
+  }));
+  
 });

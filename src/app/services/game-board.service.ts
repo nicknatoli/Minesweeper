@@ -18,6 +18,22 @@ export class GameBoardService {
     return this.gameBoard.mineField[yCoordinate][xCoordinate];
   }
 
+  revealAdjacentTiles(tile: EmptyTile){
+    if(tile.mineCount > 0){
+      tile.reveal();
+      return;
+    }
+    
+    for(let location of tile.adjacentTileLocations){
+      let adjacentTile = this.gameBoard.mineField[location[1]][location[0]]
+      if(adjacentTile instanceof EmptyTile){
+        if(adjacentTile.isHidden){
+          this.revealAdjacentTiles(adjacentTile);
+        }
+      }
+    }
+  }
+
   initializeGameBoard(height: number, width: number, mines: number){
     this.gameBoard.height = height;
     this.gameBoard.width = width;
