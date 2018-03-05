@@ -29,7 +29,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   onTileClick(tile: Tile){
-    if(tile instanceof EmptyTile){
+    if(!tile.isMine){
       this.gameBoardService.revealAdjacentTiles(tile);
     } else {
       tile.reveal();

@@ -29,10 +29,7 @@ describe('EmptyTileService', () => {
     
     service.setAdjacentTileLocations();
     let actualTile = gameBoard.getTile(location[0], location[1]);
-    let actualAjacentLocations: Array<[number,number]>;
-    if(actualTile instanceof EmptyTile){
-      actualAjacentLocations = actualTile.adjacentTileLocations;
-    }
+    let actualAjacentLocations = actualTile.adjacentTileLocations;    
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
 
@@ -47,10 +44,7 @@ describe('EmptyTileService', () => {
 
     service.setAdjacentTileLocations();
     let actualTile = gameBoard.getTile(location[0], location[1]);
-    let actualAjacentLocations: Array<[number,number]>;
-    if(actualTile instanceof EmptyTile){
-      actualAjacentLocations = actualTile.adjacentTileLocations;
-    }
+    let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
 
@@ -65,10 +59,7 @@ describe('EmptyTileService', () => {
 
     service.setAdjacentTileLocations();
     let actualTile = gameBoard.getTile(location[0], location[1]);
-    let actualAjacentLocations: Array<[number,number]>;
-    if(actualTile instanceof EmptyTile){
-      actualAjacentLocations = actualTile.adjacentTileLocations;
-    }
+    let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
 
@@ -83,10 +74,7 @@ describe('EmptyTileService', () => {
 
     service.setAdjacentTileLocations();
     let actualTile = gameBoard.getTile(location[0], location[1]);
-    let actualAjacentLocations: Array<[number,number]>;
-    if(actualTile instanceof EmptyTile){
-      actualAjacentLocations = actualTile.adjacentTileLocations;
-    }
+    let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
 
@@ -101,10 +89,7 @@ describe('EmptyTileService', () => {
     
     service.setAdjacentTileLocations();
     let actualTile = gameBoard.getTile(location[0], location[1]);
-    let actualAjacentLocations: Array<[number,number]>;
-    if(actualTile instanceof EmptyTile){
-      actualAjacentLocations = actualTile.adjacentTileLocations;
-    }
+    let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
 
@@ -120,10 +105,7 @@ describe('EmptyTileService', () => {
     
     service.setAdjacentTileLocations();
     let actualTile = gameBoard.getTile(location[0], location[1]);
-    let actualAjacentLocations: Array<[number,number]>;
-    if(actualTile instanceof EmptyTile){
-      actualAjacentLocations = actualTile.adjacentTileLocations;
-    }
+    let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
 
@@ -138,10 +120,7 @@ describe('EmptyTileService', () => {
     
     service.setAdjacentTileLocations();
     let actualTile = gameBoard.getTile(location[0], location[1]);
-    let actualAjacentLocations: Array<[number,number]>;
-    if(actualTile instanceof EmptyTile){
-      actualAjacentLocations = actualTile.adjacentTileLocations;
-    }
+    let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
 
@@ -157,10 +136,7 @@ describe('EmptyTileService', () => {
     
     service.setAdjacentTileLocations();
     let actualTile = gameBoard.getTile(location[0], location[1]);
-    let actualAjacentLocations: Array<[number,number]>;
-    if(actualTile instanceof EmptyTile){
-      actualAjacentLocations = actualTile.adjacentTileLocations;
-    }
+    let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
 
@@ -175,10 +151,7 @@ describe('EmptyTileService', () => {
     
     service.setAdjacentTileLocations();
     let actualTile = gameBoard.getTile(location[0], location[1]);
-    let actualAjacentLocations: Array<[number,number]>;
-    if(actualTile instanceof EmptyTile){
-      actualAjacentLocations = actualTile.adjacentTileLocations;
-    }
+    let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
 });

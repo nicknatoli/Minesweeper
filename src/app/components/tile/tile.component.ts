@@ -14,10 +14,7 @@ export class TileComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if(this.tile instanceof EmptyTile){
-      this.mineCount = this.tile.mineCount;
-      console.log(this.mineCount);
-    }
+    this.mineCount = this.tile.mineCount;
   }
 
 

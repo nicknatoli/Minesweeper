@@ -18,18 +18,17 @@ export class GameBoardService {
     return this.gameBoard.mineField[yCoordinate][xCoordinate];
   }
 
-  revealAdjacentTiles(tile: EmptyTile){
+  revealAdjacentTiles(tile: Tile){
     if(tile.mineCount > 0){
       tile.reveal();
       return;
     }
     
+    tile.reveal();
     for(let location of tile.adjacentTileLocations){
-      let adjacentTile = this.gameBoard.mineField[location[1]][location[0]]
-      if(adjacentTile instanceof EmptyTile){
-        if(adjacentTile.isHidden){
-          this.revealAdjacentTiles(adjacentTile);
-        }
+      let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
+      if(adjacentTile.isHidden){
+        this.revealAdjacentTiles(adjacentTile);
       }
     }
   }

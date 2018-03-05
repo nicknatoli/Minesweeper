@@ -93,11 +93,9 @@ describe('GameBoardService', () => {
     let mineAdjacentTile: EmptyTile;
     for(let row of mineField){
       for(let tile of row){
-        if(tile instanceof EmptyTile){
-          if(tile.mineCount > 0){
-            mineAdjacentTile = tile;
-            break;
-          }
+        if(tile.mineCount > 0){
+          mineAdjacentTile = tile;
+          break;
         }
       }
     }
@@ -111,14 +109,13 @@ describe('GameBoardService', () => {
   it('Tiles not bordering a mine should reveal adjacent tiles', inject([GameBoardService], (service: GameBoardService) => {
     service.initializeGameBoard(BEGINNER[0],BEGINNER[1], BEGINNER[2]);
     let mineField = service.getMineField();
-    let emptyTile: EmptyTile;
+    let emptyTile: Tile;
     for(let row of mineField){
       for(let tile of row){
-        if(tile instanceof EmptyTile){
-          if(tile.mineCount == 0){
-            emptyTile = tile;
-            break;
-          }
+        if(tile.isMine) { continue; }
+        if(tile.mineCount == 0){
+          emptyTile = tile;
+          break;
         }
       }
     }
@@ -128,5 +125,4 @@ describe('GameBoardService', () => {
       expect(mineField[location[1]][location[0]].isHidden).toBeFalsy();
     }
   }));
-  
 });

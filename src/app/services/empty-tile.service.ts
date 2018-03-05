@@ -13,9 +13,9 @@ export class EmptyTileService {
 
     for(let y = 0; y < this.gameBoard.height; ++y){
       for(let x = 0; x < this.gameBoard.width; ++x){
-        let adjacentTileLocations = this.getAdjacentLocations(x,y);
         let tile = mineField[y][x];
-        if(tile instanceof EmptyTile){
+        if(!tile.isMine){
+          let adjacentTileLocations = this.getAdjacentLocations(x,y);
           tile.adjacentTileLocations = adjacentTileLocations;
           this.caclulateMineCount(tile);
         }
@@ -23,7 +23,7 @@ export class EmptyTileService {
     }
   }
 
-  private caclulateMineCount(tile: EmptyTile){
+  private caclulateMineCount(tile: Tile){
     for(let location of tile.adjacentTileLocations){
       let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
       if(adjacentTile.isMine){
