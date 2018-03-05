@@ -1,14 +1,12 @@
-table, tr {
+table {
+    border-collapse: collapse;
     border: 1px solid black;
+    border-spacing: 0px 0px;
 }
 
 td {
     empty-cells: show;
     cursor: pointer;
-    width:25px;
-    height:25px;
-    border:2px outset rgb(61, 57, 57);
-    box-shadow: 0 1px rgb(85, 83, 83);
 }
 
 td:hover{
@@ -17,5 +15,8 @@ td:hover{
 
 td:active{
     transform: translateY(1px);
-    box-shadow: 0 0px rgb(85, 83, 83);
+}
+
+#mine-field{
+    display: flex;
 }

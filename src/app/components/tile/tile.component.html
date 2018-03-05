@@ -1,3 +1,4 @@
+<div id="tile-wrapper" [ngStyle]="determineStyle()">
 <ng-container *ngIf="!tile.isHidden">
   <ng-container *ngIf="tile.isMine">
     <img src="../../../assets/mine.jpg">
@@ -6,3 +7,4 @@
     <label *ngIf="mineCount>0">{{mineCount}}</label>
   </ng-container>
 </ng-container>
+</div>
