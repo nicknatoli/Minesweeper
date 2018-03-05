@@ -1,12 +1,51 @@
+
+.game-dashboard{
+    display: inline-block;
+}
+
+#difficulty{
+    display: flex;
+    position: relative;
+    float: left;
+    width: 100px;
+}
+
 #game-wrapper{
     display: inline-block;
     position: relative;
     background-color: darkgrey;
     margin: auto;
-    border: solid black 2px;
-    
+    border: solid black 2px;   
+}
+
+#game-status:hover{
+    background-color: black;
+}
+
+#game-status{
+    display: flex;
+    position: relative;
+    height:50px;
+    width:50px;
+    border: 2px outset darkgray;
+    border-radius: 1px; 
+    margin-right: auto;
+    margin-left: auto;
+    background: url("../assets/smileyface.jpg") no-repeat;
+    background-size: cover;
 }
 
 #game-settings{
     top:0;
+}
+
+#mines{
+    display: flex;
+    position: relative;
+    float: right;
+    border:1px solid black;
+    color:red;
+    border-radius: 2px;
+    background-color: black;
+    width: 100px;
 }

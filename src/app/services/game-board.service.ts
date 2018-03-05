@@ -18,6 +18,14 @@ export class GameBoardService {
     return this.gameBoard.mineField[yCoordinate][xCoordinate];
   }
 
+  revealAllTiles(){
+    for(let row of this.gameBoard.mineField){
+      for(let tile of row){
+        tile.reveal();
+      }
+    }
+  }
+
   revealAdjacentTiles(tile: Tile){
     if(tile.mineCount > 0){
       tile.reveal();

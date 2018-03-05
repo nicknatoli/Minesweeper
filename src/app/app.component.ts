@@ -19,15 +19,17 @@ export class AppComponent {
     [8,8,10],
     [16,16,40],
     [16,30,99]
-  ]
+  ];
   public gameCounter: number;
   public selectedDifficulty: any;
+  private gameStatusElemRef: any;
 
   constructor(private gameBoardService: GameBoardService) {}
 
   ngOnInit(){
     this.selectedDifficulty = Difficulty.Beginner;
     this.gameCounter = 0;
+    this.gameStatusElemRef = document.getElementById('game-status');
   }
 
   newGame() {
@@ -37,5 +39,10 @@ export class AppComponent {
       
     this.gameBoardService.initializeGameBoard(height, width, numberOfMines);
     this.gameCounter++;
+  }
+
+  onGameOver(){
+    this.gameStatusElemRef.style.background = "url(../assets/sadface.jpg) no-repeat"; 
+    this.gameStatusElemRef.style.backgroundSize = "cover"; 
   }
 }

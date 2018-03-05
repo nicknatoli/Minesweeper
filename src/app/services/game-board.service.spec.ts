@@ -125,4 +125,16 @@ describe('GameBoardService', () => {
       expect(mineField[location[1]][location[0]].isHidden).toBeFalsy();
     }
   }));
+
+  it('revealAllTiles should reveal all tiles', inject([GameBoardService], (service: GameBoardService) => {
+    service.initializeGameBoard(BEGINNER[0],BEGINNER[1], BEGINNER[2]);
+    service.revealAllTiles();
+    
+    let mineField = service.getMineField();
+    for(let row of mineField){
+      for(let tile of row){
+        expect(tile.isHidden).toBeFalsy();
+      }
+    }
+  }));
 });
