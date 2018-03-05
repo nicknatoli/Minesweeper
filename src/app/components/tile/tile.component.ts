@@ -11,15 +11,31 @@ export class TileComponent implements OnInit {
   @Input() tile: Tile;
   public mineCount: number;
   public style: any;
+  public isFlagged: boolean;
 
   constructor() { }
 
   ngOnInit() {
     this.mineCount = this.tile.mineCount;
+    this.isFlagged = false;
+  }
+
+  onRightClick(event){
+    this.isFlagged = !this.isFlagged;
   }
 
   determineStyle(){
-    if(this.tile.isHidden){
+    if(this.tile.isHidden && this.isFlagged){
+      this.style = {
+        'text-align': 'center',
+        'display':'flex',
+        'height':'35px',
+        'width':'35px',
+        'border':'2px outset rgb(61, 57, 57)',
+        'background': 'center url(../../assets/flag.jpg) no-repeat'
+      };
+    }
+    else if(this.tile.isHidden){
       this.style = {
         'text-align': 'center',
         'display':'flex',

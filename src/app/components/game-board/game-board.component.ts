@@ -11,6 +11,7 @@ import { EmptyTile } from '../../models/empty-tile';
 export class GameBoardComponent implements OnInit {
   @Input() gameCounter: number;
   @Output() onGameOver = new EventEmitter();
+  @Output() onGameWon = new EventEmitter();
   public gameOver = true;
   public mineField: Array<Array<any>>;
 
@@ -42,7 +43,14 @@ export class GameBoardComponent implements OnInit {
       this.gameOver = true;
       this.onGameOver.emit();
     }
+
     
     this.updateMineField();
   }
+
+  // onContextMenu(event: MouseEvent, tile: Tile){
+  //   console.log(event);
+  //   tile.isFlagged = !tile.isFlagged;
+  // }
+
 }

@@ -1,4 +1,4 @@
-<div id="tile-wrapper" [ngStyle]="determineStyle()">
+<div id="tile-wrapper" [ngStyle]="determineStyle()" (contextmenu)="onRightClick($event)">
 <ng-container *ngIf="!tile.isHidden">
   <ng-container *ngIf="tile.isMine">
     <img src="../../../assets/mine.jpg">
