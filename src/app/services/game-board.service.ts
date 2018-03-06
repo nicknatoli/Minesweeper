@@ -63,31 +63,36 @@ export class GameBoardService {
     this.gameBoard.mineField = new Array<Array<Tile>>();
 
     this.createEmptyMineField();
-    this.placeMines();
-    this.tileService.setAdjacentTileLocations();
   }
 
   private createEmptyMineField(){
-    for(let i = 0; i < this.gameBoard.height; ++i){
+    for(let y = 0; y < this.gameBoard.height; ++y){
       let row = new Array<Tile>();
-      for(let j = 0; j < this.gameBoard.width; ++j){
-        row.push(new EmptyTile());
+      for(let x = 0; x < this.gameBoard.width; ++x){
+        row.push(new EmptyTile(x,y));
       }
       this.gameBoard.mineField.push(row);  
     }
   }
 
-  private placeMines(){
-    for(let location of this.generateMineLocations()){
-      this.gameBoard.mineField[location[1]][location[0]] = new Mine();
+  public generateMines(initialClickXCoordinate: number, initialClickYCoordinate: number){
+    this.placeMines([initialClickXCoordinate, initialClickYCoordinate]);
+    this.tileService.setAdjacentTileLocations();
+  }
+
+  private placeMines(safeTileLocation: [number,number]){
+    for(let location of this.generateMineLocations(safeTileLocation)){
+      this.gameBoard.mineField[location[1]][location[0]] = new Mine(location[0], location[1]);
     }
   }
 
-  private generateMineLocations(){
+  private generateMineLocations(safeTileLocation: [number,number]){
     let mineLocations = new Array<[number,number]>();
-    for(let i = 0; i < this.gameBoard.mines; ++i){
+    while(mineLocations.length < this.gameBoard.mines){
       let mineLocation = this.generateUniqueLocation(mineLocations);
-      mineLocations.push(mineLocation);
+      if(mineLocation[0] != safeTileLocation[0] && mineLocation[1] != safeTileLocation[1]){
+        mineLocations.push(mineLocation);
+      }
     }
     return mineLocations;
   }

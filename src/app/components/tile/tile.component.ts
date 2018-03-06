@@ -9,13 +9,11 @@ import { EmptyTile } from '../../models/empty-tile';
 })
 export class TileComponent implements OnInit {
   @Input() tile: Tile;
-  public mineCount: number;
   public isFlagged: boolean;
   public isMineHit: boolean;
   public tileStyle: any;
 
   ngOnInit() {
-    this.mineCount = this.tile.mineCount;
     this.isFlagged = false;
     this.isMineHit = false;
   }

@@ -20,7 +20,7 @@ describe('TileComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TileComponent);
     component = fixture.componentInstance;
-    component.tile = new EmptyTile();
+    component.tile = new EmptyTile(0,0);
     fixture.detectChanges();
   });
 

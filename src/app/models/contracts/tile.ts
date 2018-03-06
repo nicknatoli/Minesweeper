@@ -3,5 +3,8 @@ export interface Tile {
     isHidden: boolean;
     adjacentTileLocations: Array<[number,number]>;
     mineCount: number;
+    xCoordinate: number;
+    yCoordinate: number;
+    
     reveal();
 }

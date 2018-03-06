@@ -5,8 +5,12 @@ export class EmptyTile implements Tile {
     public isHidden: boolean;
     public adjacentTileLocations: Array<[number,number]>;
     public mineCount: number;
+    public xCoordinate: number;
+    public yCoordinate: number;
 
-    constructor(){
+    constructor(xCoordinate: number, yCoordinate: number){
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
         this.isMine = false;
         this.isHidden = true;
         this.mineCount = 0;
