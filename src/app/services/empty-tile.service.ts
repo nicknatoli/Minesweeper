@@ -23,23 +23,17 @@ export class EmptyTileService {
     }
   }
 
-  private caclulateAdjacentMineCount(tile: Tile){
-    for(let location of tile.adjacentTileLocations){
-      let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
-      if(adjacentTile.isMine){
-        tile.adjacentMineCount++;
-      }
-    }
-  }
-
   private getAdjacentLocations(xCoordinate, yCoordinate){
+    const MAX_ADJACENT_ROWS = 3;
+    const MAX_ADJACENT_COLUMNS = 3;
     let adjacentLocations = new Array<[number,number]>();
     let topLeftAdjacentLocation = [xCoordinate-1, yCoordinate-1];
-    for(let i = 0; i < 3; ++i){
-      let adjacentYCoordinate = topLeftAdjacentLocation[1] + i;
+    
+    for(let y = 0; y < MAX_ADJACENT_ROWS; ++y){
+      let adjacentYCoordinate = topLeftAdjacentLocation[1] + y;
       if(!this.isValidYCoordinate(adjacentYCoordinate)) { continue; }
-      for(let j = 0; j < 3; ++j){
-        let adjacentXCoordinate = topLeftAdjacentLocation[0] + j; 
+      for(let x = 0; x < MAX_ADJACENT_COLUMNS ; ++x){
+        let adjacentXCoordinate = topLeftAdjacentLocation[0] + x; 
         if(!this.isValidXCoordinate(adjacentXCoordinate)) { continue; }
         if(adjacentXCoordinate != xCoordinate || adjacentYCoordinate != yCoordinate){
           adjacentLocations.push([adjacentXCoordinate, adjacentYCoordinate]);
@@ -55,5 +49,14 @@ export class EmptyTileService {
 
   private isValidXCoordinate(xCoordinate){
     return xCoordinate < this.gameBoard.width && xCoordinate >= 0;
+  }
+
+  private caclulateAdjacentMineCount(tile: Tile){
+    for(let location of tile.adjacentTileLocations){
+      let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
+      if(adjacentTile.isMine){
+        tile.adjacentMineCount++;
+      }
+    }
   }
 }
