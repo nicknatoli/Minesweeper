@@ -28,7 +28,8 @@ describe('EmptyTileService', () => {
     ];
     
     service.setAdjacentTileAttributes();
-    let actualTile = gameBoard.getTile(location[0], location[1]);
+    let mineField = gameBoard.getMineField();
+    let actualTile = mineField[location[1]][location[0]];
     let actualAjacentLocations = actualTile.adjacentTileLocations;    
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
@@ -43,7 +44,8 @@ describe('EmptyTileService', () => {
     ];
 
     service.setAdjacentTileAttributes();
-    let actualTile = gameBoard.getTile(location[0], location[1]);
+    let mineField = gameBoard.getMineField();
+    let actualTile = mineField[location[1]][location[0]];
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
@@ -58,7 +60,8 @@ describe('EmptyTileService', () => {
     ];
 
     service.setAdjacentTileAttributes();
-    let actualTile = gameBoard.getTile(location[0], location[1]);
+    let mineField = gameBoard.getMineField();
+    let actualTile = mineField[location[1]][location[0]];
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
@@ -73,7 +76,8 @@ describe('EmptyTileService', () => {
     ];
 
     service.setAdjacentTileAttributes();
-    let actualTile = gameBoard.getTile(location[0], location[1]);
+    let mineField = gameBoard.getMineField();
+    let actualTile = mineField[location[1]][location[0]];
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
@@ -88,7 +92,8 @@ describe('EmptyTileService', () => {
     ];
     
     service.setAdjacentTileAttributes();
-    let actualTile = gameBoard.getTile(location[0], location[1]);
+    let mineField = gameBoard.getMineField();
+    let actualTile = mineField[location[1]][location[0]];
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
@@ -104,7 +109,8 @@ describe('EmptyTileService', () => {
     ];
     
     service.setAdjacentTileAttributes();
-    let actualTile = gameBoard.getTile(location[0], location[1]);
+    let mineField = gameBoard.getMineField();
+    let actualTile = mineField[location[1]][location[0]];
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
@@ -119,7 +125,8 @@ describe('EmptyTileService', () => {
     ];
     
     service.setAdjacentTileAttributes();
-    let actualTile = gameBoard.getTile(location[0], location[1]);
+    let mineField = gameBoard.getMineField();
+    let actualTile = mineField[location[1]][location[0]];
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
@@ -135,7 +142,8 @@ describe('EmptyTileService', () => {
     ];
     
     service.setAdjacentTileAttributes();
-    let actualTile = gameBoard.getTile(location[0], location[1]);
+    let mineField = gameBoard.getMineField();
+    let actualTile = mineField[location[1]][location[0]];
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));
@@ -150,7 +158,8 @@ describe('EmptyTileService', () => {
     ];
     
     service.setAdjacentTileAttributes();
-    let actualTile = gameBoard.getTile(location[0], location[1]);
+    let mineField = gameBoard.getMineField();
+    let actualTile = mineField[location[1]][location[0]];
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
   }));

@@ -18,7 +18,7 @@ export class TileComponent implements OnInit {
     this.isMineHit = false;
   }
 
-  onRightClick(event){
+  onRightClick(event: MouseEvent){
     this.isFlagged = !this.isFlagged;
   }
 
@@ -49,7 +49,7 @@ export class TileComponent implements OnInit {
 
   setMineColor(){
     if(this.tile.isMine){
-      this.isMineHit = !this.isMineHit;
+      this.isMineHit = true;
     }
   }
 

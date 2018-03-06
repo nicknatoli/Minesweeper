@@ -24,7 +24,9 @@ export class AppComponent {
   public selectedDifficulty: any;
   private gameStatusElemRef: any;
 
-  constructor(private gameBoardService: GameBoardService) {}
+  constructor(
+    private gameBoardService: GameBoardService
+  ) {}
 
   ngOnInit(){
     this.selectedDifficulty = Difficulty.Beginner;

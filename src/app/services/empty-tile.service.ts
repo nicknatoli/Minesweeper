@@ -6,7 +6,9 @@ import { EmptyTile } from '../models/empty-tile';
 @Injectable()
 export class EmptyTileService {
 
-  constructor(private gameBoard: GameBoard) { }
+  constructor(
+    private gameBoard: GameBoard
+  ) { }
 
   setAdjacentTileAttributes(){
     let mineField = this.gameBoard.mineField;

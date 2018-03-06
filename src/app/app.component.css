@@ -20,10 +20,6 @@
     border: solid black 2px;   
 }
 
-#game-status:hover{
-    background-color: rgb(255, 208, 0);
-}
-
 #game-status{
     display: flex;
     position: relative;

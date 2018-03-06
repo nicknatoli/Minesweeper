@@ -8,52 +8,13 @@ import { EmptyTileService } from './empty-tile.service';
 @Injectable()
 export class GameBoardService {
 
-  constructor(private gameBoard: GameBoard, private tileService: EmptyTileService) { }
+  constructor(
+    private gameBoard: GameBoard, 
+    private tileService: EmptyTileService
+  ) { }
 
   getMineField(){
     return this.gameBoard.mineField;
-  }
-
-  getTile(xCoordinate, yCoordinate){
-    return this.gameBoard.mineField[yCoordinate][xCoordinate];
-  }
-
-  isGameWon(){
-    let tilesRevealed = 0;
-    for(let row of this.gameBoard.mineField){
-      for(let tile of row){
-        if(!tile.isHidden){
-          ++tilesRevealed;
-        }
-      }
-    }
-
-    let totalTiles = this.gameBoard.height*this.gameBoard.width;
-    let remainingTiles = totalTiles - tilesRevealed;
-    return remainingTiles == this.gameBoard.mines;
-  }
-
-  revealAllTiles(){
-    for(let row of this.gameBoard.mineField){
-      for(let tile of row){
-        tile.reveal();
-      }
-    }
-  }
-
-  revealAdjacentTiles(tile: Tile){
-    if(tile.adjacentMineCount > 0){
-      tile.reveal();
-      return;
-    }
-    
-    tile.reveal();
-    for(let location of tile.adjacentTileLocations){
-      let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
-      if(adjacentTile.isHidden){
-        this.revealAdjacentTiles(adjacentTile);
-      }
-    }
   }
 
   initializeGameBoard(height: number, width: number, mines: number){
@@ -75,7 +36,7 @@ export class GameBoardService {
     }
   }
 
-  public generateMines(initialClickXCoordinate: number, initialClickYCoordinate: number){
+  generateMines(initialClickXCoordinate: number, initialClickYCoordinate: number){
     this.placeMines([initialClickXCoordinate, initialClickYCoordinate]);
     this.tileService.setAdjacentTileAttributes();
   }
@@ -111,5 +72,43 @@ export class GameBoardService {
     let xCoordinate = Math.floor((Math.random()*1000 % this.gameBoard.width));
     let yCoordinate = Math.floor((Math.random()*1000 % this.gameBoard.height));
     return [xCoordinate, yCoordinate];
+  }
+
+  revealAdjacentTiles(tile: Tile){
+    if(tile.adjacentMineCount > 0){
+      tile.reveal();
+      return;
+    }
+    
+    tile.reveal();
+    for(let location of tile.adjacentTileLocations){
+      let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
+      if(adjacentTile.isHidden){
+        this.revealAdjacentTiles(adjacentTile);
+      }
+    }
+  }
+
+  revealAllTiles(){
+    for(let row of this.gameBoard.mineField){
+      for(let tile of row){
+        tile.reveal();
+      }
+    }
+  }
+
+  isGameWon(){
+    let tilesRevealed = 0;
+    for(let row of this.gameBoard.mineField){
+      for(let tile of row){
+        if(!tile.isHidden){
+          ++tilesRevealed;
+        }
+      }
+    }
+
+    let totalTiles = this.gameBoard.height*this.gameBoard.width;
+    let remainingTiles = totalTiles - tilesRevealed;
+    return remainingTiles == this.gameBoard.mines;
   }
 }
