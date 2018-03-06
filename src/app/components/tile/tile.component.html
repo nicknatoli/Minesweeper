@@ -1,7 +1,7 @@
 <div id="tile-wrapper" [ngStyle]="determineStyle()" (contextmenu)="onRightClick($event)">
 <ng-container *ngIf="!tile.isHidden">
   <ng-container *ngIf="tile.isMine">
-    <img src="../../../assets/mine.jpg">
+    <img src="../../../assets/mine.PNG">
   </ng-container>
   <ng-container *ngIf="!tile.isMine">
     <label *ngIf="mineCount>0">{{mineCount}}</label>

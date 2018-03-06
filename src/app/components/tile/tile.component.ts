@@ -32,7 +32,8 @@ export class TileComponent implements OnInit {
         'height':'35px',
         'width':'35px',
         'border':'2px outset rgb(61, 57, 57)',
-        'background': 'center url(../../assets/flag.jpg) no-repeat'
+        'background': 'center url(../../assets/flag.png) no-repeat',
+        'background-size': 'contain'
       };
     }
     else if(this.tile.isHidden){
