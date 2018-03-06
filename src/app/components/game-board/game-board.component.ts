@@ -10,7 +10,7 @@ import { EmptyTile } from '../../models/empty-tile';
 })
 export class GameBoardComponent implements OnInit {
   @Input() gameCounter: number;
-  @Output() onGameOver = new EventEmitter();
+  @Output() onGameLost = new EventEmitter();
   @Output() onGameWon = new EventEmitter();
   public gameOver = true;
   public mineField: Array<Array<any>>;
@@ -41,14 +41,14 @@ export class GameBoardComponent implements OnInit {
     } else {
       this.gameBoardService.revealAllTiles();
       this.gameOver = true;
-      this.onGameOver.emit();
+      this.onGameLost.emit();
     }
 
     if(this.gameBoardService.isGameWon()){
       this.onGameWon.emit();
       this.gameOver = true;
     }
-    
+
     this.updateMineField();
   }
 

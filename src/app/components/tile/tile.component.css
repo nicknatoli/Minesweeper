@@ -2,3 +2,15 @@ img{
     height:100%;
     width:100%;
 }
+
+label{
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+#tile-wrapper{
+    display: flex;
+    height: 35px;
+    width:35px;
+}

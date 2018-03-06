@@ -44,7 +44,7 @@ export class AppComponent {
     this.gameStatusElemRef.style.backgroundSize = "cover"; 
   }
 
-  onGameOver(){
+  onGameLost(){
     this.gameStatusElemRef.style.background = "url(../assets/game_lost.PNG) no-repeat"; 
     this.gameStatusElemRef.style.backgroundSize = "cover"; 
   }

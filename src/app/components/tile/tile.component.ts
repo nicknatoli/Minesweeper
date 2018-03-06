@@ -10,10 +10,7 @@ import { EmptyTile } from '../../models/empty-tile';
 export class TileComponent implements OnInit {
   @Input() tile: Tile;
   public mineCount: number;
-  public style: any;
   public isFlagged: boolean;
-
-  constructor() { }
 
   ngOnInit() {
     this.mineCount = this.tile.mineCount;
@@ -24,36 +21,44 @@ export class TileComponent implements OnInit {
     this.isFlagged = !this.isFlagged;
   }
 
-  determineStyle(){
+  setTileBorderAndBackground(){
     if(this.tile.isHidden && this.isFlagged){
-      this.style = {
-        'text-align': 'center',
-        'display':'flex',
-        'height':'35px',
-        'width':'35px',
+      return {
         'border':'2px outset rgb(61, 57, 57)',
-        'background': 'center url(../../assets/flag.png) no-repeat',
+        'background': 'center url(../../assets/flag.PNG) no-repeat',
         'background-size': 'contain'
       };
     }
     else if(this.tile.isHidden){
-      this.style = {
-        'text-align': 'center',
-        'display':'flex',
-        'height':'35px',
-        'width':'35px',
+      return {
         'border':'2px outset rgb(61, 57, 57)'
       };
     } else {
-      this.style = {
-        'text-align': 'center',
-        'display':'flex',
-        'height':'35px',
-        'width':'35px',
+      return {
         'border':'1px solid rgb(61, 57, 57)',
         'background-color':'rgb(212, 216, 221)'
       };
     }
-    return this.style;
+  }
+
+  setMineCountTextColor(){
+    switch(this.tile.mineCount){
+      case 1:
+        return {'color': 'blue'};
+      case 2:
+        return {'color': 'green'};
+      case 3:
+        return {'color': 'red'};
+      case 4:
+        return {'color': 'purple'};
+      case 5:
+        return {'color': 'darkred'};
+      case 6:
+        return {'color': 'turquoise'}
+      case 7: 
+        return {'color': 'black'}
+      case 8: 
+        return {'color': 'darkgray'}
+    }
   }
 }

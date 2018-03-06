@@ -11,5 +11,5 @@
       <div class="game-dashboard" id="game-status" (click)="newGame()">
     </div>    
   </div>
-  <app-game-board *ngIf="gameCounter > 0" [gameCounter]="gameCounter" (onGameOver)="onGameOver($event)" (onGameWon)="onGameWon($event)"></app-game-board>
+  <app-game-board *ngIf="gameCounter > 0" [gameCounter]="gameCounter" (onGameLost)="onGameLost($event)" (onGameWon)="onGameWon($event)"></app-game-board>
 </div>
