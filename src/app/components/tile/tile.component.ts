@@ -11,10 +11,13 @@ export class TileComponent implements OnInit {
   @Input() tile: Tile;
   public mineCount: number;
   public isFlagged: boolean;
+  public isMineHit: boolean;
+  public tileStyle: any;
 
   ngOnInit() {
     this.mineCount = this.tile.mineCount;
     this.isFlagged = false;
+    this.isMineHit = false;
   }
 
   onRightClick(event){
@@ -33,11 +36,22 @@ export class TileComponent implements OnInit {
       return {
         'border':'2px outset rgb(61, 57, 57)'
       };
+    } else if(this.isMineHit) {
+      return {
+        'border':'1px solid rgb(61, 57, 57)',
+        'background-color':'red'
+      };
     } else {
       return {
         'border':'1px solid rgb(61, 57, 57)',
         'background-color':'rgb(212, 216, 221)'
       };
+    }
+  }
+
+  setMineColor(){
+    if(this.tile.isMine){
+      this.isMineHit = !this.isMineHit;
     }
   }
 

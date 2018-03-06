@@ -1,4 +1,4 @@
-<div id="tile-wrapper" [ngStyle]="setTileBorderAndBackground()" (contextmenu)="onRightClick($event)">
+<div id="tile-wrapper" [ngStyle]="setTileBorderAndBackground()" (contextmenu)="onRightClick($event)" (click)="setMineColor()">
 <ng-container *ngIf="!tile.isHidden">
   <ng-container *ngIf="tile.isMine">
     <img src="../../../assets/mine.PNG">
