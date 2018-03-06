@@ -77,7 +77,7 @@ export class GameBoardService {
 
   public generateMines(initialClickXCoordinate: number, initialClickYCoordinate: number){
     this.placeMines([initialClickXCoordinate, initialClickYCoordinate]);
-    this.tileService.setAdjacentTileLocations();
+    this.tileService.setAdjacentTileAttributes();
   }
 
   private placeMines(safeTileLocation: [number,number]){

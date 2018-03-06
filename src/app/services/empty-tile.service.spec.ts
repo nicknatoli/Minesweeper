@@ -27,7 +27,7 @@ describe('EmptyTileService', () => {
       [3,5], [4,5], [5,5]
     ];
     
-    service.setAdjacentTileLocations();
+    service.setAdjacentTileAttributes();
     let actualTile = gameBoard.getTile(location[0], location[1]);
     let actualAjacentLocations = actualTile.adjacentTileLocations;    
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
@@ -42,7 +42,7 @@ describe('EmptyTileService', () => {
       [0,1], [1,1]
     ];
 
-    service.setAdjacentTileLocations();
+    service.setAdjacentTileAttributes();
     let actualTile = gameBoard.getTile(location[0], location[1]);
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
@@ -57,7 +57,7 @@ describe('EmptyTileService', () => {
       [6,1], [7,1]
     ];
 
-    service.setAdjacentTileLocations();
+    service.setAdjacentTileAttributes();
     let actualTile = gameBoard.getTile(location[0], location[1]);
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
@@ -72,7 +72,7 @@ describe('EmptyTileService', () => {
              [1,7]
     ];
 
-    service.setAdjacentTileLocations();
+    service.setAdjacentTileAttributes();
     let actualTile = gameBoard.getTile(location[0], location[1]);
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
@@ -87,7 +87,7 @@ describe('EmptyTileService', () => {
       [6,7]
     ];
     
-    service.setAdjacentTileLocations();
+    service.setAdjacentTileAttributes();
     let actualTile = gameBoard.getTile(location[0], location[1]);
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
@@ -103,7 +103,7 @@ describe('EmptyTileService', () => {
       [0,5], [1,5]
     ];
     
-    service.setAdjacentTileLocations();
+    service.setAdjacentTileAttributes();
     let actualTile = gameBoard.getTile(location[0], location[1]);
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
@@ -118,7 +118,7 @@ describe('EmptyTileService', () => {
       [3,1], [4,1], [5,1]
     ];
     
-    service.setAdjacentTileLocations();
+    service.setAdjacentTileAttributes();
     let actualTile = gameBoard.getTile(location[0], location[1]);
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
@@ -134,7 +134,7 @@ describe('EmptyTileService', () => {
       [6,5], [7,5]
     ];
     
-    service.setAdjacentTileLocations();
+    service.setAdjacentTileAttributes();
     let actualTile = gameBoard.getTile(location[0], location[1]);
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);
@@ -149,7 +149,7 @@ describe('EmptyTileService', () => {
       [3,7],        [5,7]
     ];
     
-    service.setAdjacentTileLocations();
+    service.setAdjacentTileAttributes();
     let actualTile = gameBoard.getTile(location[0], location[1]);
     let actualAjacentLocations = actualTile.adjacentTileLocations; 
     expect(actualAjacentLocations).toEqual(expecteAdjacentLocations);

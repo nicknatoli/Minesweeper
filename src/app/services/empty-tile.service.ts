@@ -8,7 +8,7 @@ export class EmptyTileService {
 
   constructor(private gameBoard: GameBoard) { }
 
-  setAdjacentTileLocations(){
+  setAdjacentTileAttributes(){
     let mineField = this.gameBoard.mineField;
 
     for(let y = 0; y < this.gameBoard.height; ++y){
