@@ -9,21 +9,20 @@ import { EmptyTile } from '../../models/empty-tile';
 })
 export class TileComponent implements OnInit {
   @Input() tile: Tile;
-  public isFlagged: boolean;
   public isMineHit: boolean;
   public tileStyle: any;
 
   ngOnInit() {
-    this.isFlagged = false;
     this.isMineHit = false;
   }
 
   onRightClick(event: MouseEvent){
-    this.isFlagged = !this.isFlagged;
+    this.tile.isFlagged = !this.tile.isFlagged;
+    event.preventDefault();
   }
 
   setTileBorderAndBackground(){
-    if(this.tile.isHidden && this.isFlagged){
+    if(this.tile.isHidden && this.tile.isFlagged){
       return {
         'border':'2px outset rgb(61, 57, 57)',
         'background': 'center url(../../assets/flag.PNG) no-repeat',

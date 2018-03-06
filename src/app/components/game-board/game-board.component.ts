@@ -37,7 +37,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   onTileClick(tile: Tile){
-    if(this.gameOver) { return; }
+    if(this.gameOver || tile.isFlagged) { return; }
 
     if(this.firstClick){
       this.gameBoardService.generateMines(tile.xCoordinate, tile.yCoordinate);

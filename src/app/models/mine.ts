@@ -3,6 +3,7 @@ import { Tile } from "./contracts/tile";
 export class Mine implements Tile {
     public readonly isMine: boolean;
     public isHidden: boolean;
+    public isFlagged: boolean;
     public adjacentTileLocations: Array<[number,number]>;
     public adjacentMineCount: number;
     public xCoordinate: number;
@@ -13,6 +14,7 @@ export class Mine implements Tile {
         this.yCoordinate = y;
         this.isMine = true;
         this.isHidden = true;
+        this.isFlagged = false;
     }
 
     reveal(){
