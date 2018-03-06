@@ -54,6 +54,7 @@ export class GameBoardComponent implements OnInit {
     }
 
     if(this.gameBoardService.isGameWon()){
+      this.gameBoardService.revealAllTiles();
       this.onGameWon.emit();
       this.gameOver = true;
       this.firstClick = true;

@@ -4,7 +4,7 @@ export class EmptyTile implements Tile {
     public readonly isMine: boolean;
     public isHidden: boolean;
     public adjacentTileLocations: Array<[number,number]>;
-    public mineCount: number;
+    public adjacentMineCount: number;
     public xCoordinate: number;
     public yCoordinate: number;
 
@@ -13,7 +13,7 @@ export class EmptyTile implements Tile {
         this.yCoordinate = yCoordinate;
         this.isMine = false;
         this.isHidden = true;
-        this.mineCount = 0;
+        this.adjacentMineCount = 0;
     }
 
     reveal(){

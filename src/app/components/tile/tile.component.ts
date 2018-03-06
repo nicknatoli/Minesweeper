@@ -53,8 +53,8 @@ export class TileComponent implements OnInit {
     }
   }
 
-  setMineCountTextColor(){
-    switch(this.tile.mineCount){
+  setAdjacentMineCountTextColor(){
+    switch(this.tile.adjacentMineCount){
       case 1:
         return {'color': 'blue'};
       case 2:

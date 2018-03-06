@@ -171,7 +171,7 @@ describe('GameBoardService', () => {
     let mineAdjacentTile: EmptyTile;
     for(let row of mineField){
       for(let tile of row){
-        if(tile.mineCount > 0){
+        if(tile.adjacentMineCount > 0){
           mineAdjacentTile = tile;
           break;
         }
@@ -192,7 +192,7 @@ describe('GameBoardService', () => {
     for(let row of mineField){
       for(let tile of row){
         if(tile.isMine) { continue; }
-        if(tile.mineCount == 0){
+        if(tile.adjacentMineCount == 0){
           emptyTile = tile;
           break;
         }

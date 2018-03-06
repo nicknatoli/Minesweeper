@@ -42,7 +42,7 @@ export class GameBoardService {
   }
 
   revealAdjacentTiles(tile: Tile){
-    if(tile.mineCount > 0){
+    if(tile.adjacentMineCount > 0){
       tile.reveal();
       return;
     }

@@ -4,7 +4,7 @@ export class Mine implements Tile {
     public readonly isMine: boolean;
     public isHidden: boolean;
     public adjacentTileLocations: Array<[number,number]>;
-    public mineCount: number;
+    public adjacentMineCount: number;
     public xCoordinate: number;
     public yCoordinate: number;
 

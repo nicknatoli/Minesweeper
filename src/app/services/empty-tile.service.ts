@@ -17,17 +17,17 @@ export class EmptyTileService {
         if(!tile.isMine){
           let adjacentTileLocations = this.getAdjacentLocations(x,y);
           tile.adjacentTileLocations = adjacentTileLocations;
-          this.caclulateMineCount(tile);
+          this.caclulateAdjacentMineCount(tile);
         }
       }
     }
   }
 
-  private caclulateMineCount(tile: Tile){
+  private caclulateAdjacentMineCount(tile: Tile){
     for(let location of tile.adjacentTileLocations){
       let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
       if(adjacentTile.isMine){
-        tile.mineCount++;
+        tile.adjacentMineCount++;
       }
     }
   }
