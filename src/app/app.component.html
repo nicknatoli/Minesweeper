@@ -6,10 +6,14 @@
     </select>
     </div>
     <div class="game-dashboard" id="mines">
-      <label> {{difficultyValues[selectedDifficulty][2]}} </label>
+      <label> {{mineCount}} </label>
     </div>
       <div class="game-dashboard" id="game-status" (click)="newGame()">
     </div>    
   </div>
-  <app-game-board *ngIf="gameCounter > 0" [gameCounter]="gameCounter" (onGameLost)="onGameLost($event)" (onGameWon)="onGameWon($event)"></app-game-board>
+  <app-game-board *ngIf="gameCounter > 0" 
+    [gameCounter]="gameCounter"
+    (onGameLost)="onGameLost($event)" 
+    (onGameWon)="onGameWon($event)"
+    (onUpdateFlaggedTileCount)="onUpdateFlaggedTileCount($event)"></app-game-board>
 </div>

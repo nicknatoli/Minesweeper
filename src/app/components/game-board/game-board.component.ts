@@ -12,24 +12,31 @@ export class GameBoardComponent implements OnInit {
   @Input() gameCounter: number;
   @Output() onGameLost = new EventEmitter();
   @Output() onGameWon = new EventEmitter();
+  @Output() onUpdateFlaggedTileCount = new EventEmitter<number>();
   public gameOver: boolean;
   public mineField: Array<Array<any>>;
+  public flaggedTileCount: number;
   private firstClick: boolean;
 
-  constructor(private gameBoardService: GameBoardService) { }
+  constructor(
+    private gameBoardService: GameBoardService
+  ) { }
 
   ngOnInit() {
-    this.gameOver = false;
-    this.firstClick = true;
-    this.updateMineField();
+    this.setupGame();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes.gameCounter.currentValue > changes.gameCounter.previousValue){
-      this.gameOver = false;
-      this.firstClick = true;
-      this.updateMineField();
+      this.setupGame();
     }
+  }
+
+  setupGame(){
+    this.gameOver = false;
+    this.firstClick = true;
+    this.flaggedTileCount = 0;
+    this.updateMineField();
   }
 
   updateMineField(){
@@ -48,19 +55,30 @@ export class GameBoardComponent implements OnInit {
       this.gameBoardService.revealAdjacentTiles(tile);
     } else {
       this.gameBoardService.revealAllTiles();
-      this.gameOver = true;
-      this.firstClick = true;
       this.onGameLost.emit();
+      this.endGame();
     }
 
     if(this.gameBoardService.isGameWon()){
       this.gameBoardService.revealAllTiles();
       this.onGameWon.emit();
-      this.gameOver = true;
-      this.firstClick = true;
+      this.endGame();
     }
 
     this.updateMineField();
   }
 
+  endGame(){
+    this.gameOver = true;
+  }
+
+  onTileFlagged(){
+    this.flaggedTileCount++;
+    this.onUpdateFlaggedTileCount.emit(this.flaggedTileCount);
+  }
+
+  onTileUnflagged(){
+    this.flaggedTileCount--;
+    this.onUpdateFlaggedTileCount.emit(this.flaggedTileCount);
+  }
 }

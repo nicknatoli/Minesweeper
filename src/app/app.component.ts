@@ -20,6 +20,7 @@ export class AppComponent {
     [16,16,40],
     [16,30,99]
   ];
+  public mineCount: number;
   public gameCounter: number;
   public selectedDifficulty: any;
   private gameStatusElemRef: any;
@@ -31,19 +32,24 @@ export class AppComponent {
   ngOnInit(){
     this.selectedDifficulty = Difficulty.Beginner;
     this.gameCounter = 0;
+    this.mineCount = 0;
     this.gameStatusElemRef = document.getElementById('game-status');
   }
 
   newGame() {
     let height = this.difficultyValues[this.selectedDifficulty][0];
     let width = this.difficultyValues[this.selectedDifficulty][1];
-    let numberOfMines = this.difficultyValues[this.selectedDifficulty][2];
+    this.mineCount = this.difficultyValues[this.selectedDifficulty][2];
       
-    this.gameBoardService.initializeGameBoard(height, width, numberOfMines);
+    this.gameBoardService.initializeGameBoard(height, width, this.mineCount);
     this.gameCounter++;
 
     this.gameStatusElemRef.style.background = "url(../assets/game_start.PNG) no-repeat"; 
     this.gameStatusElemRef.style.backgroundSize = "cover"; 
+  }
+
+  onUpdateFlaggedTileCount(flaggedTileCount: number){
+    this.mineCount = this.difficultyValues[this.selectedDifficulty][2] - flaggedTileCount;
   }
 
   onGameLost(){

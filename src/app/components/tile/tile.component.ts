@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Tile } from '../../models/contracts/tile';
 import { EmptyTile } from '../../models/empty-tile';
 
@@ -8,6 +8,8 @@ import { EmptyTile } from '../../models/empty-tile';
   styleUrls: ['./tile.component.css']
 })
 export class TileComponent implements OnInit {
+  @Output() onTileFlagged = new EventEmitter();
+  @Output() onTileUnflagged = new EventEmitter();  
   @Input() tile: Tile;
   public isMineHit: boolean;
   public tileStyle: any;
@@ -17,8 +19,13 @@ export class TileComponent implements OnInit {
   }
 
   onRightClick(event: MouseEvent){
-    this.tile.isFlagged = !this.tile.isFlagged;
     event.preventDefault();
+    this.tile.isFlagged = !this.tile.isFlagged;
+    if(this.tile.isFlagged){
+      this.onTileFlagged.emit();
+    } else {
+      this.onTileUnflagged.emit();
+    }
   }
 
   setTileBorderAndBackground(){
