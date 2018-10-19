@@ -1,4 +1,3 @@
-
 .game-dashboard{
     display: inline-block;
 }
@@ -20,7 +19,7 @@
     border: solid black 2px;   
 }
 
-#game-status{
+.game-status{
     display: flex;
     position: relative;
     height:50px;
@@ -29,7 +28,20 @@
     border-radius: 1px; 
     margin-right: auto;
     margin-left: auto;
+}
+
+.game-status--new {
     background: url("../assets/game_start.PNG") no-repeat;
+    background-size: cover;
+}
+
+.game-status--won {
+    background: url("../assets/game_won.PNG") no-repeat;
+    background-size: cover;
+}
+
+.game-status--lost {
+    background: url("../assets/game_lost.PNG") no-repeat;
     background-size: cover;
 }
 

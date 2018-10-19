@@ -1,64 +1,48 @@
-import { Component } from '@angular/core';
-import { GameBoardService } from './services/game-board.service';
-import { Difficulty } from './enums/difficulty.enum';
-import { digest } from '@angular/compiler/src/i18n/serializers/xmb';
-import { scheduleMicroTask } from '@angular/core/src/util';
+import { Component, OnInit } from '@angular/core';
+import { DifficultyType } from './enums/difficulty.enum';
+import { Subject } from 'rxjs/Subject';
+import { DifficultyService } from './services/difficulty.service';
+import { Difficulty } from './models/contracts/difficulty';
+import { GameStatus } from './enums/game-status.enum';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  public difficulties = [
-    [Difficulty.Beginner, "Beginner"],
-    [Difficulty.Intermediate, "Intermediate"],
-    [Difficulty.Advanced, "Advanced"]
-  ];
-  public difficultyValues = [
-    [8,8,10],
-    [16,16,40],
-    [16,30,99]
-  ];
-  public mineCount: number;
-  public gameCounter: number;
-  public selectedDifficulty: any;
-  private gameStatusElemRef: any;
+export class AppComponent implements OnInit {
+  public newGameSubject: Subject<Difficulty> = new Subject<Difficulty>();
+  public gameStatus: GameStatus = GameStatus.New;
+  public selectedDifficulty: Difficulty;
+  public mineCount: number = 0;
+
+  get difficulties(): Array<string> {
+    return Object.keys(DifficultyType);
+  }
 
   constructor(
-    private gameBoardService: GameBoardService
+    private readonly difficultyService: DifficultyService
   ) {}
 
   ngOnInit(){
-    this.selectedDifficulty = Difficulty.Beginner;
-    this.gameCounter = 0;
+    this.selectedDifficulty = this.difficultyService.getDifficulty(DifficultyType.Beginner);
+  }
+
+  public newGame() {
+    this.newGameSubject.next(this.selectedDifficulty);
+    this.gameStatus = GameStatus.New;
     this.mineCount = 0;
-    this.gameStatusElemRef = document.getElementById('game-status');
   }
 
-  newGame() {
-    let height = this.difficultyValues[this.selectedDifficulty][0];
-    let width = this.difficultyValues[this.selectedDifficulty][1];
-    this.mineCount = this.difficultyValues[this.selectedDifficulty][2];
-      
-    this.gameBoardService.initializeGameBoard(height, width, this.mineCount);
-    this.gameCounter++;
-
-    this.gameStatusElemRef.style.background = "url(../assets/game_start.PNG) no-repeat"; 
-    this.gameStatusElemRef.style.backgroundSize = "cover"; 
+  public setSelectedDifficulty(difficultyType: DifficultyType){
+    this.selectedDifficulty = this.difficultyService.getDifficulty(difficultyType);
   }
 
-  onUpdateFlaggedTileCount(flaggedTileCount: number){
-    this.mineCount = this.difficultyValues[this.selectedDifficulty][2] - flaggedTileCount;
+  public onUpdateFlaggedTileCount(flaggedTileCount: number){
+    this.mineCount = this.selectedDifficulty.mineCount - flaggedTileCount;
   }
 
-  onGameLost(){
-    this.gameStatusElemRef.style.background = "url(../assets/game_lost.PNG) no-repeat"; 
-    this.gameStatusElemRef.style.backgroundSize = "cover"; 
-  }
-
-  onGameWon(){
-    this.gameStatusElemRef.style.background = "url(../assets/game_won.PNG) no-repeat"; 
-    this.gameStatusElemRef.style.backgroundSize = "cover"; 
+  public onGameOver(gameWon: boolean){
+    this.gameStatus = gameWon ? GameStatus.Won : GameStatus.Lost;
   }
 }

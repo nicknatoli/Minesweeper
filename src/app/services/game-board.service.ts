@@ -1,55 +1,29 @@
 import { Injectable } from '@angular/core';
 import { GameBoard } from '../models/game-board';
-import { Mine } from '../models/mine';
-import { EmptyTile } from '../models/empty-tile';
-import { Tile } from '../models/contracts/tile';
-import { EmptyTileService } from './empty-tile.service';
+import { Tile } from '../models/tile';
 
 @Injectable()
 export class GameBoardService {
+  private gameBoard: GameBoard;
+  private mineCount: number;
 
-  constructor(
-    private gameBoard: GameBoard, 
-    private tileService: EmptyTileService
-  ) { }
-
-  getMineField(){
+  public getMineField(): Array<Array<Tile>> {
     return this.gameBoard.mineField;
   }
 
-  initializeGameBoard(height: number, width: number, mines: number){
-    this.gameBoard.height = height;
-    this.gameBoard.width = width;
-    this.gameBoard.mines = mines;
-    this.gameBoard.mineField = new Array<Array<Tile>>();
-
-    this.createEmptyMineField();
+  public initializeGameBoard(height: number, width: number, mineCount: number): void{
+    this.gameBoard = new GameBoard(height, width);
+    this.mineCount = mineCount;
   }
 
-  private createEmptyMineField(){
-    for(let y = 0; y < this.gameBoard.height; ++y){
-      let row = new Array<Tile>();
-      for(let x = 0; x < this.gameBoard.width; ++x){
-        row.push(new EmptyTile(x,y));
-      }
-      this.gameBoard.mineField.push(row);  
-    }
+  public generateMines(initialXCoordinate: number, initialYCoordinate: number): void {
+    this.generateMineLocations([initialXCoordinate, initialYCoordinate])
+      .forEach(x => this.gameBoard.addMine(x[0], x[1]));
   }
 
-  generateMines(initialClickXCoordinate: number, initialClickYCoordinate: number){
-    this.placeMines([initialClickXCoordinate, initialClickYCoordinate]);
-    this.tileService.setAdjacentTileAttributes();
-  }
-
-  private placeMines(safeTileLocation: [number,number]){
-    for(let location of this.generateMineLocations(safeTileLocation)){
-      this.gameBoard.mineField[location[1]][location[0]] = new Mine(location[0], location[1]);
-    }
-  }
-
-  private generateMineLocations(safeTileLocation: [number,number]){
+  private generateMineLocations(safeTileLocation: [number,number]): Array<[number, number]> {
     let mineLocations = new Array<[number,number]>();
-    while(mineLocations.length < this.gameBoard.mines){
+    while(mineLocations.length < this.mineCount){
       let mineLocation = this.generateUniqueLocation(mineLocations);
       if(mineLocation[0] != safeTileLocation[0] && mineLocation[1] != safeTileLocation[1]){
         mineLocations.push(mineLocation);
@@ -58,7 +32,7 @@ export class GameBoardService {
     return mineLocations;
   }
 
-  private generateUniqueLocation(existingLocations: Array<[number, number]>){
+  private generateUniqueLocation(existingLocations: Array<[number, number]>): [number, number] {
     let uniqueLocation = this.generateRandomLocation();
     for(let location of existingLocations){
       if(uniqueLocation[0] == location[0] && uniqueLocation[1] == location[1]){
@@ -68,47 +42,21 @@ export class GameBoardService {
     return uniqueLocation;
   }
 
-  private generateRandomLocation() : [number, number] {
+  private generateRandomLocation(): [number, number] {
     let xCoordinate = Math.floor((Math.random()*1000 % this.gameBoard.width));
     let yCoordinate = Math.floor((Math.random()*1000 % this.gameBoard.height));
     return [xCoordinate, yCoordinate];
   }
 
-  revealAdjacentTiles(tile: Tile){
-    if(tile.adjacentMineCount > 0){
-      tile.reveal();
-      return;
-    }
-    
-    tile.reveal();
-    for(let location of tile.adjacentTileLocations){
-      let adjacentTile = this.gameBoard.mineField[location[1]][location[0]];
-      if(adjacentTile.isHidden){
-        this.revealAdjacentTiles(adjacentTile);
-      }
-    }
+  public revealTile(tile: Tile): void {
+    this.gameBoard.revealTile(tile.xCoordinate, tile.yCoordinate);
   }
 
-  revealAllTiles(){
-    for(let row of this.gameBoard.mineField){
-      for(let tile of row){
-        tile.reveal();
-      }
-    }
+  public revealAllTiles(): void {
+    this.gameBoard.revealAllTiles();
   }
 
-  isGameWon(){
-    let tilesRevealed = 0;
-    for(let row of this.gameBoard.mineField){
-      for(let tile of row){
-        if(!tile.isHidden){
-          ++tilesRevealed;
-        }
-      }
-    }
-
-    let totalTiles = this.gameBoard.height*this.gameBoard.width;
-    let remainingTiles = totalTiles - tilesRevealed;
-    return remainingTiles == this.gameBoard.mines;
+  public isGameWon(): boolean { 
+    return this.gameBoard.getHiddenTileCount() === this.mineCount;
   }
 }

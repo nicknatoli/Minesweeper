@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Tile } from '../../models/contracts/tile';
-import { EmptyTile } from '../../models/empty-tile';
+import { Tile } from '../../models/tile';
 
 @Component({
   selector: 'app-tile',
@@ -59,7 +58,7 @@ export class TileComponent implements OnInit {
     }
   }
 
-  setAdjacentMineCountTextColor(){
+  get textColor(){
     switch(this.tile.adjacentMineCount){
       case 1:
         return {'color': 'blue'};

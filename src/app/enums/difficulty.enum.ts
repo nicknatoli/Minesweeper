@@ -1,6 +1,5 @@
-export enum Difficulty {
-    Beginner,
-    Intermediate,
-    Advanced,
-    Custom
+export enum DifficultyType {
+    Beginner = "Beginner",
+    Intermediate = "Intermediate",
+    Advanced = "Advanced"
 }

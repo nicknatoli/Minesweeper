@@ -1,19 +1,18 @@
 <div id="game-wrapper">
   <div id="game-settings">
-    <div class="game-dashboard" id="difficulty">
-    <select id="difficulty-select" (change)="selectedDifficulty=$event.target.value">
-        <option *ngFor="let difficulty of difficulties" [value]="difficulty[0]"> {{difficulty[1]}} </option>        
+    <div id="difficulty" class="game-dashboard">
+    <select id="difficulty-select" (change)="setSelectedDifficulty($event.target.value)">
+        <option *ngFor="let difficulty of difficulties" [value]="difficulty"> {{difficulty}} </option>        
     </select>
     </div>
     <div class="game-dashboard" id="mines">
       <label> {{mineCount}} </label>
     </div>
-      <div class="game-dashboard" id="game-status" (click)="newGame()">
-    </div>    
+    <div [gameStatusImg]="gameStatus" class="game-dashboard game-status" (click)="newGame()"></div>    
   </div>
-  <app-game-board *ngIf="gameCounter > 0" 
-    [gameCounter]="gameCounter"
-    (onGameLost)="onGameLost($event)" 
-    (onGameWon)="onGameWon($event)"
-    (onUpdateFlaggedTileCount)="onUpdateFlaggedTileCount($event)"></app-game-board>
+  <app-game-board 
+    [newGame]="newGameSubject"
+    (onGameOver)="onGameOver()"
+    (onUpdateFlaggedTileCount)="onUpdateFlaggedTileCount($event)">
+  </app-game-board>
 </div>
