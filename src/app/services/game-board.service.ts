@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Coordinates } from "../models/contracts/coordinates"
 import { GameBoard } from '../models/game-board';
 import { Tile } from '../models/tile';
 
@@ -16,40 +17,40 @@ export class GameBoardService {
     this.mineCount = mineCount;
   }
 
-  public generateMines(initialXCoordinate: number, initialYCoordinate: number): void {
-    this.generateMineLocations([initialXCoordinate, initialYCoordinate])
-      .forEach(x => this.gameBoard.addMine(x[0], x[1]));
+  public generateMines(initialClickCooridinates: Coordinates): void {
+    this.generateMineCoordinates(initialClickCooridinates)
+      .forEach(x => this.gameBoard.addMine(x));
   }
 
-  private generateMineLocations(safeTileLocation: [number,number]): Array<[number, number]> {
-    let mineLocations = new Array<[number,number]>();
-    while(mineLocations.length < this.mineCount){
-      let mineLocation = this.generateUniqueLocation(mineLocations);
-      if(mineLocation[0] != safeTileLocation[0] && mineLocation[1] != safeTileLocation[1]){
-        mineLocations.push(mineLocation);
+  private generateMineCoordinates(safeTile: Coordinates): Array<Coordinates> {
+    let mines = new Array<Coordinates>();
+    while(mines.length < this.mineCount){
+      let mine = this.generateUniqueCoordinates(mines);
+      if(mine.x != safeTile.x && mine.y != safeTile.y){
+        mines.push(mine);
       }
     }
-    return mineLocations;
+    return mines;
   }
 
-  private generateUniqueLocation(existingLocations: Array<[number, number]>): [number, number] {
-    let uniqueLocation = this.generateRandomLocation();
-    for(let location of existingLocations){
-      if(uniqueLocation[0] == location[0] && uniqueLocation[1] == location[1]){
-        return this.generateUniqueLocation(existingLocations);
+  private generateUniqueCoordinates(existingCoordinates: Array<Coordinates>): Coordinates {
+    let uniqueCoordinates = this.generateRandomCoordinates();
+    for(let coordinates of existingCoordinates){
+      if(uniqueCoordinates.x === coordinates.x && uniqueCoordinates.y === coordinates.y){
+        return this.generateUniqueCoordinates(existingCoordinates);
       } 
     }
-    return uniqueLocation;
+    return uniqueCoordinates;
   }
 
-  private generateRandomLocation(): [number, number] {
+  private generateRandomCoordinates(): Coordinates {
     let xCoordinate = Math.floor((Math.random()*1000 % this.gameBoard.width));
     let yCoordinate = Math.floor((Math.random()*1000 % this.gameBoard.height));
-    return [xCoordinate, yCoordinate];
+    return {x: xCoordinate, y: yCoordinate};
   }
 
   public revealTile(tile: Tile): void {
-    this.gameBoard.revealTile(tile.xCoordinate, tile.yCoordinate);
+    this.gameBoard.revealTile(tile.coordinates);
   }
 
   public revealAllTiles(): void {

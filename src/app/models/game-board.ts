@@ -1,3 +1,4 @@
+import { Coordinates} from "./contracts/coordinates";
 import { Tile } from './tile';
 
 export class GameBoard {
@@ -14,31 +15,31 @@ export class GameBoard {
     for (let y = 0; y < this.height; ++y) {
       let row = new Array<Tile>();
       for (let x = 0; x < this.width; ++x) {
-        row.push(new Tile(x, y));
+        row.push(new Tile({x: x, y: y}));
       }
       this.mineField.push(row);
     }
   }
 
-  public getTile(x: number, y: number): Tile {
-    return this.mineField[y][x];
+  public getTile(coordinates): Tile {
+    return this.mineField[coordinates.y][coordinates.x];
   }
 
-  public addMine(x: number, y: number): void {
-    this.mineField[y][x] = new Tile(x, y, true);
-    for(let coordinate of this.getAdjacentLocations(x,y)){
-      let tile = this.getTile(coordinate[0], coordinate[1]);
+  public addMine(coordinates: Coordinates): void {
+    this.mineField[coordinates.y][coordinates.x] = new Tile(coordinates, true);
+    for(let adjCoordinates of this.getAdjacentLocations(coordinates)){
+      let tile = this.getTile(adjCoordinates);
       if(!tile.isMine) tile.adjacentMineCount++;
     }
   }
 
-  public revealTile(x: number, y: number): void {
-    let tile = this.getTile(x, y);
+  public revealTile(coordinates: Coordinates): void {
+    let tile = this.getTile(coordinates);
     if (!tile.isHidden) return;
     tile.reveal();
     if (tile.adjacentMineCount > 0) return;
-    for(let coordinate of this.getAdjacentLocations(x,y)){
-      this.revealTile(coordinate[0], coordinate[1]);
+    for(let adjCoordinates of this.getAdjacentLocations(coordinates)){
+      this.revealTile(adjCoordinates);
     }
   }
 
@@ -59,20 +60,20 @@ export class GameBoard {
     return hiddenTileCount;
   }
 
-  private getAdjacentLocations(xCoordinate, yCoordinate): Array<[number, number]> {
+  private getAdjacentLocations(coordinates: Coordinates): Array<Coordinates> {
     const MAX_ADJACENT_ROWS = 3;
     const MAX_ADJACENT_COLUMNS = 3;
-    let adjacentLocations = new Array<[number, number]>();
-    let topLeftAdjacentLocation = [xCoordinate - 1, yCoordinate - 1];
+    let adjacentLocations = new Array<Coordinates>();
+    let topLeftAdjacentLocation = { x: coordinates.x - 1, y: coordinates.y - 1} as Coordinates;
 
     for (let y = 0; y < MAX_ADJACENT_ROWS; ++y) {
-      let adjacentYCoordinate = topLeftAdjacentLocation[1] + y;
+      let adjacentYCoordinate = topLeftAdjacentLocation.y + y;
       if (!this.isValidYCoordinate(adjacentYCoordinate)) continue;
       for (let x = 0; x < MAX_ADJACENT_COLUMNS; ++x) {
-        let adjacentXCoordinate = topLeftAdjacentLocation[0] + x;
+        let adjacentXCoordinate = topLeftAdjacentLocation.x + x;
         if (!this.isValidXCoordinate(adjacentXCoordinate)) continue;
-        if (adjacentXCoordinate != xCoordinate || adjacentYCoordinate != yCoordinate) {
-          adjacentLocations.push([adjacentXCoordinate, adjacentYCoordinate]);
+        if (adjacentXCoordinate != coordinates.x || adjacentYCoordinate != coordinates.y) {
+          adjacentLocations.push({x: adjacentXCoordinate, y: adjacentYCoordinate});
         }
       }
     }
