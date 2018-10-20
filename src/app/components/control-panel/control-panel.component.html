@@ -1,0 +1,11 @@
+<div id="game-settings">
+  <div id="difficulty" class="game-dashboard">
+  <select id="difficulty-select" (change)="selectedDifficulty = $event.target.value">
+      <option *ngFor="let difficulty of difficulties" [value]="difficulty"> {{difficulty}} </option>        
+  </select>
+  </div>
+  <div class="game-dashboard" id="mines">
+    <label> {{mineCount}} </label>
+  </div>
+  <div [gameStatusImg]="gameStatus" class="game-dashboard game-status" (click)="newGame()"></div>    
+</div>

@@ -3,6 +3,7 @@ import { GameBoardService } from '../../services/game-board.service';
 import { Tile } from '../../models/tile';
 import { Observable } from 'rxjs/Observable';
 import { Difficulty } from '../../models/contracts/difficulty';
+import { GameStateService } from '../../services/game-state.service';
 
 @Component({
   selector: 'app-game-board',
@@ -10,20 +11,19 @@ import { Difficulty } from '../../models/contracts/difficulty';
   styleUrls: ['./game-board.component.css']
 })
 export class GameBoardComponent implements OnInit {
-  @Input() newGame: Observable<Difficulty>;
-  @Output() onGameOver = new EventEmitter<boolean>();
-  @Output() onUpdateFlaggedTileCount = new EventEmitter<number>();
   public gameOver: boolean;
   public mineField: Array<Array<any>>;
   public flaggedTileCount: number;
   private firstClick: boolean;
 
   constructor(
-    private gameBoardService: GameBoardService
+    private gameBoardService: GameBoardService,
+    private gameStateService: GameStateService
   ) { }
 
   public ngOnInit(): void {
-    this.newGame.subscribe((difficulty: Difficulty) => this.setupGame(difficulty));
+    this.gameStateService.newGameObservable.subscribe((difficulty: Difficulty) => 
+      this.setupGame(difficulty));
   }
 
   public setupGame(difficulty: Difficulty): void {
@@ -63,16 +63,6 @@ export class GameBoardComponent implements OnInit {
 
   public endGame(gameWon: boolean): void {
     this.gameOver = true;
-    this.onGameOver.emit(gameWon);
-  }
-
-  public onTileFlagged(): void {
-    this.flaggedTileCount++;
-    this.onUpdateFlaggedTileCount.emit(this.flaggedTileCount);
-  }
-
-  public onTileUnflagged(): void {
-    this.flaggedTileCount--;
-    this.onUpdateFlaggedTileCount.emit(this.flaggedTileCount);
+    this.gameStateService.gameOver(gameWon);
   }
 }

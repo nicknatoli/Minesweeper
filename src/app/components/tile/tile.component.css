@@ -1,15 +1,15 @@
-img{
+img {
     height:100%;
     width:100%;
 }
 
-label{
+label {
     width: 100%;
     text-align: center;
     margin: auto;
 }
 
-#tile-wrapper{
+#tile-wrapper {
     display: flex;
     height: 35px;
     width:35px;
@@ -17,7 +17,7 @@ label{
 
 .tile--flagged { 
     border: 2px outset rgb(61, 57, 57);
-    background: center url(../../assets/flag.PNG) no-repeat;
+    background: center url('../../../assets/flag.PNG') no-repeat;
     background-size: contain;
 }
 

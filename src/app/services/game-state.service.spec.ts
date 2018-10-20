@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { DifficultyService } from './difficulty.service';
+import { GameStateService } from './game-state.service';
 
 describe('DifficultyService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DifficultyService]
+      providers: [GameStateService]
     });
   });
 
-  it('should be created', inject([DifficultyService], (service: DifficultyService) => {
+  it('should be created', inject([GameStateService], (service: GameStateService) => {
     expect(service).toBeTruthy();
   }));
 });
