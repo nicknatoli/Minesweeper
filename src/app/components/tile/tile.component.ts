@@ -61,21 +61,21 @@ export class TileComponent implements OnInit {
   get textColor(){
     switch(this.tile.adjacentMineCount){
       case 1:
-        return {'color': 'blue'};
+        return "blue";
       case 2:
-        return {'color': 'green'};
+        return "green"
       case 3:
-        return {'color': 'red'};
+        return "red"
       case 4:
-        return {'color': 'purple'};
+        return "purple"
       case 5:
-        return {'color': 'darkred'};
+        return "darkred"
       case 6:
-        return {'color': 'turquoise'}
+        return "turquoise"
       case 7: 
-        return {'color': 'black'}
+        return "black"
       case 8: 
-        return {'color': 'darkgray'}
+        return "darkgray"
     }
   }
 }

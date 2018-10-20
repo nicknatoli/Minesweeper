@@ -14,3 +14,23 @@ label{
     height: 35px;
     width:35px;
 }
+
+.tile--flagged { 
+    border: 2px outset rgb(61, 57, 57);
+    background: center url(../../assets/flag.PNG) no-repeat;
+    background-size: contain;
+}
+
+.tile--hidden {
+    border: 2px outset rgb(61, 57, 57);
+}
+
+.tile--mine {
+    border: 1px solid rgb(61, 57, 57);
+    background-color: rgb(212, 216, 221);
+}
+
+.tile--mine-hit {
+    border: 1px solid rgb(61, 57, 57);
+    background-color: red;
+}
