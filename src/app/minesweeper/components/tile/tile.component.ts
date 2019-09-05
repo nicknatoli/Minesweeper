@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Tile } from '../../models/tile';
 import { GameStateService } from '../../services/game-state.service';
 
@@ -9,18 +9,18 @@ import { GameStateService } from '../../services/game-state.service';
 })
 export class TileComponent implements OnInit {
   @Input() tile: Tile;
-  public isMineHit: boolean;
-  public tileStyle: any;
+  
+  public textColor: string;
 
   constructor(
     private readonly gameStateService: GameStateService
-  ){}
+  ) {}
 
   ngOnInit() {
-    this.isMineHit = false;
+    this.textColor = this.getTextColor();
   }
 
-  onRightClick(event: MouseEvent){
+  public onRightClick(event: MouseEvent): void {
     event.preventDefault();
     this.tile.isFlagged = !this.tile.isFlagged;
     if(this.tile.isFlagged){
@@ -30,55 +30,24 @@ export class TileComponent implements OnInit {
     }
   }
 
-  setTileBorderAndBackground(){
-    if(this.tile.isHidden && this.tile.isFlagged){
-      return {
-        'border':'2px outset rgb(61, 57, 57)',
-        'background': 'center url(./images/flag.PNG) no-repeat',
-        'background-size': 'contain'
-      };
-    }
-    else if(this.tile.isHidden){
-      return {
-        'border':'2px outset rgb(61, 57, 57)'
-      };
-    } else if(this.isMineHit) {
-      return {
-        'border':'1px solid rgb(61, 57, 57)',
-        'background-color':'red'
-      };
-    } else {
-      return {
-        'border':'1px solid rgb(61, 57, 57)',
-        'background-color':'rgb(212, 216, 221)'
-      };
-    }
-  }
-
-  setMineColor(){
-    if(this.tile.isMine){
-      this.isMineHit = true;
-    }
-  }
-
-  get textColor(){
+  private getTextColor(): string {
     switch(this.tile.adjacentMineCount){
       case 1:
         return "blue";
       case 2:
-        return "green"
+        return "green";
       case 3:
-        return "red"
+        return "red";
       case 4:
-        return "purple"
+        return "purple";
       case 5:
-        return "darkred"
+        return "darkred";
       case 6:
-        return "turquoise"
+        return "turquoise";
       case 7: 
-        return "black"
+        return "black";
       case 8: 
-        return "darkgray"
+        return "darkgray";
     }
   }
 }

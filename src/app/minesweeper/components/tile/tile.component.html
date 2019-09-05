@@ -1,15 +1,10 @@
-<div id="tile-wrapper" 
-     [ngStyle]="setTileBorderAndBackground()" 
-     (contextmenu)="onRightClick($event)" 
-     (click)="setMineColor()">
-<ng-container *ngIf="!tile.isHidden">
-  <ng-container *ngIf="tile.isMine">
-    <img src="../../../assets/mine.PNG">
+<div class="tile" 
+     [class.tile--flagged]="tile.isFlagged"
+     [class.tile--hidden]="tile.isHidden"
+     [class.tile--visible]="!tile.isHidden"
+     [class.tile--mine-hit]="!tile.isHidden && tile.isMine"
+     (contextmenu)="onRightClick($event)">
+  <ng-container *ngIf="!tile.isHidden && !tile.isMine && tile.adjacentMineCount > 0">
+    <label [style.color]="textColor"><strong>{{tile.adjacentMineCount}}</strong></label>
   </ng-container>
-  <ng-container *ngIf="!tile.isMine">
-    <ng-container *ngIf="tile.adjacentMineCount > 0">
-      <label [style.color]="textColor"><strong>{{tile.adjacentMineCount}}</strong></label>
-    </ng-container>
-  </ng-container>
-</ng-container>
 </div>

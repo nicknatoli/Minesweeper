@@ -9,28 +9,28 @@ label {
     margin: auto;
 }
 
-#tile-wrapper {
+.tile {
     display: flex;
     height: 35px;
     width:35px;
 }
 
-.tile--flagged { 
-    border: 2px outset rgb(61, 57, 57);
-    background: center url('./images/flag.PNG') no-repeat;
-    background-size: contain;
+.tile--visible {
+  border: 1px solid rgb(61, 57, 57);
+  background-color:rgb(212, 216, 221);
 }
 
 .tile--hidden {
     border: 2px outset rgb(61, 57, 57);
 }
 
-.tile--mine {
-    border: 1px solid rgb(61, 57, 57);
-    background-color: rgb(212, 216, 221);
+.tile--flagged { 
+    background: center url('./images/flag.PNG') no-repeat;
+    background-size: contain;
 }
 
 .tile--mine-hit {
-    border: 1px solid rgb(61, 57, 57);
+    background: center url('./images/mine.PNG') no-repeat;
+    background-size: contain;
     background-color: red;
 }
