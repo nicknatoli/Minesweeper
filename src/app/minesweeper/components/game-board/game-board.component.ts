@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GameBoardService } from '../../services/game-board.service';
 import { Tile } from '../../models/tile';
-import { Observable } from 'rxjs/Observable';
 import { Difficulty } from '../../models/contracts/difficulty';
 import { GameStateService } from '../../services/game-state.service';
 
 @Component({
-  selector: 'app-game-board',
+  selector: 'minesweeper-game-board',
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.css']
 })

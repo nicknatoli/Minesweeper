@@ -23,17 +23,17 @@
 }
 
 .game-status--new {
-    background: url("../../../assets/game_start.PNG") no-repeat;
+    background: url("./images/game_start.PNG") no-repeat;
     background-size: cover;
 }
 
 .game-status--won {
-    background: url("../../../assets/game_won.PNG") no-repeat;
+    background: url("./images/game_won.PNG") no-repeat;
     background-size: cover;
 }
 
 .game-status--lost {
-    background: url("../../../assets/game_lost.PNG") no-repeat;
+    background: url("./images/game_lost.PNG") no-repeat;
     background-size: cover;
 }
 

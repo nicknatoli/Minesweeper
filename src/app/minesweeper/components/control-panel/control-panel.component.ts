@@ -5,7 +5,7 @@ import { GameStateService } from '../../services/game-state.service';
 import { ControlPanelService } from '../../services/control-panel.service';
 
 @Component({
-  selector: 'app-control-panel',
+  selector: 'minesweeper-control-panel',
   templateUrl: './control-panel.component.html',
   styleUrls: ['./control-panel.component.css']
 })
@@ -13,10 +13,7 @@ export class ControlPanelComponent implements OnInit {
   public gameStatus: GameStatus = GameStatus.New;
   public selectedDifficulty: DifficultyType = DifficultyType.Beginner;
   public mineCount: number = 0;
-
-  get difficulties(): Array<string> {
-    return Object.keys(DifficultyType);
-  }
+  public difficulties: DifficultyType[] = Object.keys(DifficultyType).map(key => DifficultyType[key]);
 
   constructor(
     private readonly gameStateService: GameStateService,

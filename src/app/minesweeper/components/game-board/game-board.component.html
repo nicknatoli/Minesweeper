@@ -1,0 +1,7 @@
+<table>
+    <tr *ngFor="let row of mineField">
+      <td *ngFor="let tile of row" (click)="onTileClick(tile)">
+          <app-tile [tile]="tile"></app-tile>
+      </td>
+    </tr>
+</table>

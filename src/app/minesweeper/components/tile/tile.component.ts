@@ -34,7 +34,7 @@ export class TileComponent implements OnInit {
     if(this.tile.isHidden && this.tile.isFlagged){
       return {
         'border':'2px outset rgb(61, 57, 57)',
-        'background': 'center url(../../assets/flag.PNG) no-repeat',
+        'background': 'center url(./images/flag.PNG) no-repeat',
         'background-size': 'contain'
       };
     }

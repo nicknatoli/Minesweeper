@@ -1,3 +1,7 @@
+:host {
+  display: flex;
+}
+
 table {
     border-collapse: collapse;
     border: 1px solid black;
@@ -15,8 +19,4 @@ td:hover{
 
 td:active{
     transform: translateY(1px);
-}
-
-#mine-field{
-    display: flex;
 }
