@@ -13,10 +13,10 @@ export class TileComponent implements OnInit {
   public textColor: string;
 
   constructor(
-    private readonly gameStateService: GameStateService
+    private readonly _gameStateService: GameStateService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.textColor = this.getTextColor();
   }
 
@@ -24,9 +24,9 @@ export class TileComponent implements OnInit {
     event.preventDefault();
     this.tile.isFlagged = !this.tile.isFlagged;
     if(this.tile.isFlagged){
-      this.gameStateService.flagTile();
+      this._gameStateService.flagTile();
     } else {
-      this.gameStateService.unflagTile();
+      this._gameStateService.unflagTile();
     }
   }
 

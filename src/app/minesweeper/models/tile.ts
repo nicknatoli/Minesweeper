@@ -10,7 +10,7 @@ export class Tile {
     public readonly isMine: boolean = false
   ) {}
 
-  public reveal() {
+  public reveal(): void {
     this.isHidden = false;
   }
 }

@@ -2,7 +2,7 @@ import { Coordinates} from "./contracts/coordinates";
 import { Tile } from './tile';
 
 export class GameBoard {
-  public readonly mineField: Array<Array<Tile>> = [];
+  public readonly _mineField: Tile[][] = [];
 
   constructor(
     public height: number,
@@ -13,20 +13,20 @@ export class GameBoard {
 
   public initializeMineField(): void {
     for (let y = 0; y < this.height; ++y) {
-      let row = new Array<Tile>();
+      let row = [];
       for (let x = 0; x < this.width; ++x) {
         row.push(new Tile({x: x, y: y}));
       }
-      this.mineField.push(row);
+      this._mineField.push(row);
     }
   }
 
   public getTile(coordinates): Tile {
-    return this.mineField[coordinates.y][coordinates.x];
+    return this._mineField[coordinates.y][coordinates.x];
   }
 
   public addMine(coordinates: Coordinates): void {
-    this.mineField[coordinates.y][coordinates.x] = new Tile(coordinates, true);
+    this._mineField[coordinates.y][coordinates.x] = new Tile(coordinates, true);
     for(let adjCoordinates of this.getAdjacentLocations(coordinates)){
       let tile = this.getTile(adjCoordinates);
       if(!tile.isMine) tile.adjacentMineCount++;
@@ -44,13 +44,13 @@ export class GameBoard {
   }
 
   public revealAllTiles(): void {
-    this.mineField.forEach(row =>
+    this._mineField.forEach(row =>
       row.forEach(tile => tile.reveal()));
   }
 
   public getHiddenTileCount(): number {
     let hiddenTileCount = 0;
-    for(let row of this.mineField){
+    for(let row of this._mineField){
       for(let tile of row){
         if(tile.isHidden){
           ++hiddenTileCount;
@@ -60,10 +60,10 @@ export class GameBoard {
     return hiddenTileCount;
   }
 
-  private getAdjacentLocations(coordinates: Coordinates): Array<Coordinates> {
+  private getAdjacentLocations(coordinates: Coordinates): Coordinates[] {
     const MAX_ADJACENT_ROWS = 3;
     const MAX_ADJACENT_COLUMNS = 3;
-    let adjacentLocations = new Array<Coordinates>();
+    let adjacentLocations = [];
     let topLeftAdjacentLocation = { x: coordinates.x - 1, y: coordinates.y - 1} as Coordinates;
 
     for (let y = 0; y < MAX_ADJACENT_ROWS; ++y) {

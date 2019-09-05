@@ -5,40 +5,40 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class GameStateService {
-  private newGameSubject: Subject<Difficulty> = new Subject<Difficulty>();
-  private gameOverSubject: Subject<boolean> = new Subject<boolean>();
-  private tileFlagged: Subject<void> = new Subject<void>();
-  private tileUnflagged: Subject<void> = new Subject<void>();
+  private _newGameSubject: Subject<Difficulty> = new Subject<Difficulty>();
+  private _gameOverSubject: Subject<boolean> = new Subject<boolean>();
+  private _tileFlagged: Subject<void> = new Subject<void>();
+  private _tileUnflagged: Subject<void> = new Subject<void>();
 
-  get newGameObservable(): Observable<Difficulty> {
-    return this.newGameSubject.asObservable();
+  get newGame$(): Observable<Difficulty> {
+    return this._newGameSubject.asObservable();
   }
 
-  get gameOverObservable(): Observable<boolean> {
-    return this.gameOverSubject.asObservable();
+  get gameOver$(): Observable<boolean> {
+    return this._gameOverSubject.asObservable();
   }
 
-  get tileFlaggedObservable(): Observable<void> {
-    return this.tileFlagged.asObservable();
+  get tileFlagged$(): Observable<void> {
+    return this._tileFlagged.asObservable();
   }
 
-  get tileUnflaggedObservable(): Observable<void> {
-    return this.tileUnflagged.asObservable();
+  get tileUnflagged$(): Observable<void> {
+    return this._tileUnflagged.asObservable();
   }
 
   public newGame(difficulty: Difficulty): void {
-    this.newGameSubject.next(difficulty);
+    this._newGameSubject.next(difficulty);
   }
 
   public gameOver(gameWon: boolean): void {
-    this.gameOverSubject.next(gameWon);
+    this._gameOverSubject.next(gameWon);
   }
 
   public flagTile(): void {
-    this.tileFlagged.next();
+    this._tileFlagged.next();
   }
 
   public unflagTile(): void {
-    this.tileUnflagged.next();
+    this._tileUnflagged.next();
   }
 }
