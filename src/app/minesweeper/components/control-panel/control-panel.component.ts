@@ -33,6 +33,11 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
     this._gameStateSubscriptions.unsubscribe();
   }
 
+  public onDifficultyChange(difficulty: DifficultyType): void {
+    this.selectedDifficulty = difficulty;
+    this.newGame();
+  }
+
   public newGame(): void {
     let difficulty = this._controlPanelService.getDifficulty(this.selectedDifficulty);
     this.mineCount = difficulty.mineCount;

@@ -1,63 +1,64 @@
-.game-dashboard{
-    display: inline-block;
+:host {
+  top:0;
+  display: flex;
+  padding: 2%;
 }
 
-#difficulty{
-    display: flex;
-    position: relative;
-    float: left;
-    width: 100px;
-    padding:5px;
-    margin-right: 25px;
+label {
+  margin: auto;
+  text-align: center;
+  font-size: 36px;
+  width:100%;
 }
 
-.game-status{
-    display: flex;
-    position: relative;
-    height:50px;
-    width:50px;
-    border: 2px outset darkgray;
-    border-radius: 1px; 
-    margin-right: auto;
-    margin-left: auto;
+.game-dashboard--item {
+  display: flex;
+}
+
+#difficulty {
+  float: left;
+  width: 100px;
+  margin-left: 5px;
+  margin-right: 25px;
+}
+
+#difficulty-select {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  background-color: lightgrey;
+}
+
+#game-status {
+  height:50px;
+  width:50px;
+  border: 2px outset darkgray;
+  border-radius: 1px; 
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#mine-count {
+  float: right;
+  border:2px solid black;
+  color:red;
+  border-radius: 5px;
+  background-color: black;
+  width: 75px;
+  margin-left: 25px;
+  margin-right: 5px;
 }
 
 .game-status--new {
     background: url("./images/game_start.PNG") no-repeat;
-    background-size: cover;
+    background-size: contain;
 }
 
 .game-status--won {
     background: url("./images/game_won.PNG") no-repeat;
-    background-size: cover;
+    background-size: contain;
 }
 
 .game-status--lost {
     background: url("./images/game_lost.PNG") no-repeat;
-    background-size: cover;
-}
-
-#game-settings{
-    top:0;
-}
-
-#mines{
-    display: flex;
-    position: relative;
-    float: right;
-    border:2px solid black;
-    color:red;
-    border-radius: 5px;
-    background-color: black;
-    width: 75px;
-    margin-top: 5px;
-    margin-left: 25px;
-    margin-right: 25px;
-}
-
-label{
-    display: block;
-    text-align: center;
-    font-size: 36px;
-    width:100%;
+    background-size: contain;
 }
