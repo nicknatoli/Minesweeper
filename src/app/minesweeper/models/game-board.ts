@@ -2,7 +2,7 @@ import { Coordinates} from "./contracts/coordinates";
 import { Tile } from './tile';
 
 export class GameBoard {
-  public readonly _mineField: Tile[][] = [];
+  public readonly mineField: Tile[][] = [];
 
   constructor(
     public height: number,
@@ -17,16 +17,16 @@ export class GameBoard {
       for (let x = 0; x < this.width; ++x) {
         row.push(new Tile({x: x, y: y}));
       }
-      this._mineField.push(row);
+      this.mineField.push(row);
     }
   }
 
   public getTile(coordinates): Tile {
-    return this._mineField[coordinates.y][coordinates.x];
+    return this.mineField[coordinates.y][coordinates.x];
   }
 
   public addMine(coordinates: Coordinates): void {
-    this._mineField[coordinates.y][coordinates.x] = new Tile(coordinates, true);
+    this.mineField[coordinates.y][coordinates.x] = new Tile(coordinates, true);
     for(let adjCoordinates of this.getAdjacentLocations(coordinates)){
       let tile = this.getTile(adjCoordinates);
       if(!tile.isMine) tile.adjacentMineCount++;
@@ -44,13 +44,13 @@ export class GameBoard {
   }
 
   public revealAllTiles(): void {
-    this._mineField.forEach(row =>
+    this.mineField.forEach(row =>
       row.forEach(tile => tile.reveal()));
   }
 
   public getHiddenTileCount(): number {
     let hiddenTileCount = 0;
-    for(let row of this._mineField){
+    for(let row of this.mineField){
       for(let tile of row){
         if(tile.isHidden){
           ++hiddenTileCount;

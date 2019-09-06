@@ -9,7 +9,7 @@ export class GameBoardService {
   private _mineCount: number;
 
   public getMineField(): Tile[][] {
-    return this._gameBoard._mineField;
+    return this._gameBoard.mineField;
   }
 
   public initializeGameBoard(height: number, width: number, mineCount: number): void{
