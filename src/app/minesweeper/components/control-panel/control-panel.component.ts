@@ -23,7 +23,6 @@ export class ControlPanelComponent implements OnInit, OnDestroy {
     private readonly _gameStateService: GameStateService,
     private readonly _controlPanelService: ControlPanelService,
     private readonly _changeDetectorRef: ChangeDetectorRef
-
   ) {}
 
   ngOnInit(): void {
