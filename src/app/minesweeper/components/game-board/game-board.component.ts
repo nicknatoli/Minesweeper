@@ -15,8 +15,8 @@ import { Observable } from 'rxjs/Observable';
 export class GameBoardComponent implements OnInit {
   public mineField$: Observable<Observable<Tile>[][]>;
 
-  private _gameOver: boolean = false;
-  private _firstClick: boolean = true;
+  private _isGameOver: boolean = false;
+  private _isFirstClick: boolean = true;
   private _newGameSubscription: Subscription;
 
   constructor(
@@ -36,16 +36,16 @@ export class GameBoardComponent implements OnInit {
 
   public setupGame(difficulty: Difficulty): void {
     this._gameBoardService.initializeGameBoard(difficulty.height, difficulty.width, difficulty.mineCount);
-    this._gameOver = false;
-    this._firstClick = true;
+    this._isGameOver = false;
+    this._isFirstClick = true;
   }
 
   public onTileClick(tile: Tile): void {
-    if(this._gameOver || tile.isFlagged) return;
+    if(this._isGameOver || tile.isFlagged) return;
 
-    if(this._firstClick){
+    if(this._isFirstClick){
       this._gameBoardService.generateMines(tile.coordinates);
-      this._firstClick = false;
+      this._isFirstClick = false;
     }
 
     if(!tile.isMine){
@@ -63,8 +63,8 @@ export class GameBoardComponent implements OnInit {
 
   onTileRightClick(event: MouseEvent, tile: Tile): void {
     event.preventDefault();
-    if(this._gameOver) return;
-    
+    if(this._isGameOver) return;
+
     tile.isFlagged = !tile.isFlagged;
     if (tile.isFlagged) {
       this._gameStateService.flagTile();
@@ -74,7 +74,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   public endGame(gameWon: boolean): void {
-    this._gameOver = true;
+    this._isGameOver = true;
     this._gameStateService.gameOver(gameWon);
   }
 }
