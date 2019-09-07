@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import { Coordinates } from "../models/contracts/coordinates"
 import { GameBoard } from '../models/game-board';
 import { Tile } from '../models/tile';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class GameBoardService {
   private _gameBoard: GameBoard;
   private _mineCount: number;
+  private _mineField$: Subject<Tile[][]> = new Subject<Tile[][]>();
 
-  public getMineField(): Tile[][] {
-    return this._gameBoard._mineField;
-  }
+  get mineField$(): Observable<Tile[][]> { return this._mineField$.asObservable(); }
 
   public initializeGameBoard(height: number, width: number, mineCount: number): void{
     this._gameBoard = new GameBoard(height, width);
     this._mineCount = mineCount;
+    this._mineField$.next(this._gameBoard.mineField);
   }
 
   public generateMines(initialClickCooridinates: Coordinates): void {
@@ -51,10 +53,12 @@ export class GameBoardService {
 
   public revealTile(tile: Tile): void {
     this._gameBoard.revealTile(tile.coordinates);
+    this._mineField$.next(this._gameBoard.mineField);
   }
 
   public revealAllTiles(): void {
     this._gameBoard.revealAllTiles();
+    this._mineField$.next(this._gameBoard.mineField);
   }
 
   public isGameWon(): boolean { 

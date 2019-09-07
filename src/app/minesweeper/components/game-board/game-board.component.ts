@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { GameBoardService } from '../../services/game-board.service';
 import { Tile } from '../../models/tile';
 import { Difficulty } from '../../models/contracts/difficulty';
 import { GameStateService } from '../../services/game-state.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'minesweeper-game-board',
   templateUrl: './game-board.component.html',
-  styleUrls: ['./game-board.component.css']
+  styleUrls: ['./game-board.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameBoardComponent implements OnInit {
-  public mineField: Tile[][];
+  public mineField$: Observable<Tile[][]>;
   
   private _gameOver: boolean = false;
   private _firstClick: boolean = true;
@@ -20,7 +22,9 @@ export class GameBoardComponent implements OnInit {
   constructor(
     private _gameBoardService: GameBoardService,
     private _gameStateService: GameStateService
-  ) { }
+  ) { 
+    this.mineField$ = this._gameBoardService.mineField$;
+  }
 
   ngOnInit(): void {
     this._newGameSubscription = this._gameStateService.newGame$.subscribe((difficulty: Difficulty) => this.setupGame(difficulty));
@@ -34,11 +38,6 @@ export class GameBoardComponent implements OnInit {
     this._gameBoardService.initializeGameBoard(difficulty.height, difficulty.width, difficulty.mineCount);
     this._gameOver = false;
     this._firstClick = true;
-    this.updateMineField();
-  }
-
-  public updateMineField(): void {
-    this.mineField = this._gameBoardService.getMineField();
   }
 
   public onTileClick(tile: Tile): void {
@@ -60,8 +59,6 @@ export class GameBoardComponent implements OnInit {
       this._gameBoardService.revealAllTiles();
       this.endGame(true);
     }
-
-    this.updateMineField();
   }
 
   public endGame(gameWon: boolean): void {

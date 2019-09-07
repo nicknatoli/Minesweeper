@@ -1,5 +1,5 @@
 <table>
-    <tr *ngFor="let row of mineField">
+    <tr *ngFor="let row of mineField$ | async">
       <td *ngFor="let tile of row" (click)="onTileClick(tile)">
           <app-tile [tile]="tile"></app-tile>
       </td>

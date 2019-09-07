@@ -12,5 +12,6 @@ export class Tile {
 
   public reveal(): void {
     this.isHidden = false;
+    this.isFlagged = false;
   }
 }
