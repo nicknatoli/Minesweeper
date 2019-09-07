@@ -1,10 +1,9 @@
 <div class="tile" 
-     [class.tile--flagged]="tile.isFlagged"
-     [class.tile--hidden]="tile.isHidden"
-     [class.tile--visible]="!tile.isHidden"
-     [class.tile--mine-hit]="!tile.isHidden && tile.isMine"
-     (contextmenu)="onRightClick($event)">
-  <ng-container *ngIf="!tile.isHidden && !tile.isMine && tile.adjacentMineCount > 0">
-    <label [style.color]="textColor"><strong>{{tile.adjacentMineCount}}</strong></label>
+     [class.tile--flagged]="isFlagged"
+     [class.tile--hidden]="isHidden"
+     [class.tile--visible]="!isHidden"
+     [class.tile--mine-hit]="!isHidden && isMine">
+  <ng-container *ngIf="!isHidden && !isMine && adjacentMineCount > 0">
+   <label [style.color]="textColor"><strong>{{adjacentMineCount}}</strong></label>
   </ng-container>
 </div>

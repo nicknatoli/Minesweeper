@@ -9,14 +9,14 @@ import { Observable } from 'rxjs/Observable';
 export class GameBoardService {
   private _gameBoard: GameBoard;
   private _mineCount: number;
-  private _mineField$: Subject<Tile[][]> = new Subject<Tile[][]>();
+  private _mineField$: Subject<Observable<Tile>[][]> = new Subject<Observable<Tile>[][]>();
 
-  get mineField$(): Observable<Tile[][]> { return this._mineField$.asObservable(); }
+  get mineField$(): Observable<Observable<Tile>[][]> { return this._mineField$.asObservable(); }
 
   public initializeGameBoard(height: number, width: number, mineCount: number): void{
     this._gameBoard = new GameBoard(height, width);
     this._mineCount = mineCount;
-    this._mineField$.next(this._gameBoard.mineField);
+    this._mineField$.next(this._gameBoard.mineField$);
   }
 
   public generateMines(initialClickCooridinates: Coordinates): void {
@@ -53,12 +53,10 @@ export class GameBoardService {
 
   public revealTile(tile: Tile): void {
     this._gameBoard.revealTile(tile.coordinates);
-    this._mineField$.next(this._gameBoard.mineField);
   }
 
   public revealAllTiles(): void {
     this._gameBoard.revealAllTiles();
-    this._mineField$.next(this._gameBoard.mineField);
   }
 
   public isGameWon(): boolean { 

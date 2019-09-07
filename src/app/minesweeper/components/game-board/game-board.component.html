@@ -1,7 +1,15 @@
 <table>
     <tr *ngFor="let row of mineField$ | async">
-      <td *ngFor="let tile of row" (click)="onTileClick(tile)">
-          <app-tile [tile]="tile"></app-tile>
-      </td>
+      <ng-container *ngFor="let tile$ of row">
+        <ng-container *ngIf="tile$ | async as tile"> 
+            <td (click)="onTileClick(tile)" (contextmenu)="onTileRightClick($event, tile)">
+                <minesweeper-tile [isMine]="tile.isMine"
+                                  [isHidden]="tile.isHidden"
+                                  [isFlagged]="tile.isFlagged"
+                                  [adjacentMineCount]="tile.adjacentMineCount">
+                </minesweeper-tile>
+            </td>
+        </ng-container>
+      </ng-container>
     </tr>
 </table>

@@ -13,8 +13,8 @@ import { Observable } from 'rxjs/Observable';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameBoardComponent implements OnInit {
-  public mineField$: Observable<Tile[][]>;
-  
+  public mineField$: Observable<Observable<Tile>[][]>;
+
   private _gameOver: boolean = false;
   private _firstClick: boolean = true;
   private _newGameSubscription: Subscription;
@@ -58,6 +58,17 @@ export class GameBoardComponent implements OnInit {
     if(this._gameBoardService.isGameWon()){
       this._gameBoardService.revealAllTiles();
       this.endGame(true);
+    }
+  }
+
+  onTileRightClick(event: MouseEvent, tile: Tile): void {
+    event.preventDefault();
+    
+    tile.isFlagged = !tile.isFlagged;
+    if (tile.isFlagged) {
+      this._gameStateService.flagTile();
+    } else {
+      this._gameStateService.unflagTile();
     }
   }
 

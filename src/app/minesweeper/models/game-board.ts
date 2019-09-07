@@ -1,8 +1,17 @@
 import { Coordinates} from "./contracts/coordinates";
 import { Tile } from './tile';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from "rxjs/Observable";
+
+const MAX_ADJACENT_ROWS = 3;
+const MAX_ADJACENT_COLUMNS = 3;
 
 export class GameBoard {
-  public readonly mineField: Tile[][] = [];
+  private _mineField: BehaviorSubject<Tile>[][] = [];
+
+  get mineField$(): Observable<Tile>[][] {
+    return this._mineField.map(row => row.map(tile => tile.asObservable()));
+  }
 
   constructor(
     public height: number,
@@ -11,51 +20,67 @@ export class GameBoard {
     this.initializeMineField();
   }
 
-  public initializeMineField(): void {
+  private initializeMineField(): void {
     for (let y = 0; y < this.height; ++y) {
       let row = [];
       for (let x = 0; x < this.width; ++x) {
-        row.push(new Tile({x: x, y: y}));
+        const tile = new Tile({x: x, y: y});
+        row.push(new BehaviorSubject<Tile>(tile));
       }
-      this.mineField.push(row);
+      this._mineField.push(row);
     }
   }
 
-  public getTile(coordinates): Tile {
-    return this.mineField[coordinates.y][coordinates.x];
-  }
-
   public addMine(coordinates: Coordinates): void {
-    this.mineField[coordinates.y][coordinates.x] = new Tile(coordinates, true);
-    for(let adjCoordinates of this.getAdjacentLocations(coordinates)){
-      let tile = this.getTile(adjCoordinates);
-      if(!tile.isMine) tile.adjacentMineCount++;
+    const tile$ = this._mineField[coordinates.y][coordinates.x];
+    const tile = tile$.value;
+    tile.isMine = true;
+    tile$.next(tile);
+
+    for(const adjCoordinates of this.getAdjacentLocations(coordinates)){
+      const adjacentTile$ = this.getTile(adjCoordinates);
+      const adjacentTile = adjacentTile$.value; 
+      if(!adjacentTile.isMine) {
+        ++adjacentTile.adjacentMineCount;
+        adjacentTile$.next(adjacentTile);
+      }
     }
   }
 
   public revealTile(coordinates: Coordinates): void {
-    let tile = this.getTile(coordinates);
+    const tile$ = this.getTile(coordinates);
+    const tile = tile$.value;
     if (!tile.isHidden) return;
     
     tile.reveal();
-    
+    tile$.next(tile);
+
     if (tile.adjacentMineCount > 0) return;
 
-    const adjacentLocations = this.getAdjacentLocations(coordinates);
-    for(let adjCoordinates of adjacentLocations) {
-      this.revealTile(adjCoordinates);
-    }
+    this.getAdjacentLocations(coordinates).forEach(x => this.revealTile(x));
+  }
+
+  private getTile(coordinates): BehaviorSubject<Tile> {
+    return this._mineField[coordinates.y][coordinates.x];
   }
 
   public revealAllTiles(): void {
-    this.mineField.forEach(row => row.forEach(tile => tile.reveal()));
+    for(const row of this._mineField){
+      for(const tile$ of row){
+        const tile = tile$.value;
+        if(tile.isHidden){
+          tile.reveal();
+          tile$.next(tile);
+        }
+      }
+    }
   }
 
   public getHiddenTileCount(): number {
     let hiddenTileCount = 0;
-    for(let row of this.mineField){
-      for(let tile of row){
-        if(tile.isHidden){
+    for(const row of this._mineField){
+      for(const tile$ of row){
+        if(tile$.value.isHidden){
           ++hiddenTileCount;
         }
       }
@@ -64,10 +89,8 @@ export class GameBoard {
   }
 
   private getAdjacentLocations(coordinates: Coordinates): Coordinates[] {
-    const MAX_ADJACENT_ROWS = 3;
-    const MAX_ADJACENT_COLUMNS = 3;
-    let adjacentLocations = [];
-    let topLeftAdjacentLocation = { x: coordinates.x - 1, y: coordinates.y - 1} as Coordinates;
+    const adjacentLocations = [];
+    const topLeftAdjacentLocation = { x: coordinates.x - 1, y: coordinates.y - 1} as Coordinates;
 
     for (let y = 0; y < MAX_ADJACENT_ROWS; ++y) {
       let adjacentYCoordinate = topLeftAdjacentLocation.y + y;
