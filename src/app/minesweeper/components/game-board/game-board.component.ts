@@ -48,12 +48,20 @@ export class GameBoardComponent implements OnInit {
       this._isFirstClick = false;
     }
 
-    if(!tile.isMine){
-      this._gameBoardService.revealTile(tile);
+    if(tile.isMine){
+      this.mineTileClicked(tile);
     } else {
-      this._gameBoardService.revealAllTiles();
-      this.endGame(false);
+      this.emptyTileClicked(tile);
     }
+  }
+
+  private mineTileClicked(tile: Tile): void {
+    this._gameBoardService.revealAllTiles();
+    this.endGame(false);
+  }
+
+  private emptyTileClicked(tile: Tile): void {
+    this._gameBoardService.revealTile(tile);
 
     if(this._gameBoardService.isGameWon()){
       this._gameBoardService.revealAllTiles();
@@ -61,7 +69,7 @@ export class GameBoardComponent implements OnInit {
     }
   }
 
-  onTileRightClick(event: MouseEvent, tile: Tile): void {
+  public onTileRightClick(event: MouseEvent, tile: Tile): void {
     event.preventDefault();
     if(this._isGameOver) return;
 
@@ -73,7 +81,7 @@ export class GameBoardComponent implements OnInit {
     }
   }
 
-  public endGame(gameWon: boolean): void {
+  private endGame(gameWon: boolean): void {
     this._isGameOver = true;
     this._gameStateService.gameOver(gameWon);
   }
