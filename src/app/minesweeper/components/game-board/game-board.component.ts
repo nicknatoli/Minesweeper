@@ -63,6 +63,7 @@ export class GameBoardComponent implements OnInit {
 
   onTileRightClick(event: MouseEvent, tile: Tile): void {
     event.preventDefault();
+    if(this._gameOver) return;
     
     tile.isFlagged = !tile.isFlagged;
     if (tile.isFlagged) {
