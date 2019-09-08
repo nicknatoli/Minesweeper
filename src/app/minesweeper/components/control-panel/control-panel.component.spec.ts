@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ControlPanelComponent } from './control-panel.component';
+import { GameStateService } from '../../services/game-state.service';
+import { ControlPanelService } from '../../services/control-panel.service';
+import { GameStatusImgDirective } from '../../directives/game-status-img.directive';
 
 describe('ControlPanelComponent', () => {
   let component: ControlPanelComponent;
@@ -8,7 +11,14 @@ describe('ControlPanelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ControlPanelComponent ]
+      declarations: [ 
+        ControlPanelComponent,
+        GameStatusImgDirective
+      ],
+      providers: [
+        GameStateService,
+        ControlPanelService
+      ]
     })
     .compileComponents();
   }));
